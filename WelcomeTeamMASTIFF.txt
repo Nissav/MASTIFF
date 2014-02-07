@@ -1,0 +1,11 @@
+Welcome everyone!
+So this is getHub!
+
+First rule of getHub: NEVER do anything before you SYNC!!!!! 
+Second rule of getHub: NEVER EVER DO ANYTHING BEFORE YOU SYNC!!!
+Third rule of getHub: ALWAYS remember to commit when you are done and include a message 
+	so we all know what magical code you added. 
+	
+So you will want to make a clone of the repository onto your computer. This lets you 
+treat the repository as if it was just another folder on your computer. Remember the rules
+of getHub: SYNC AND COMMIT!!! 	
