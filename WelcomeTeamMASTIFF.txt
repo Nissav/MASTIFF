@@ -8,4 +8,4 @@ Third rule of getHub: ALWAYS remember to commit when you are done and include a 
 	
 So you will want to make a clone of the repository onto your computer. This lets you 
 treat the repository as if it was just another folder on your computer. Remember the rules
-of getHub: SYNC AND COMMIT!!! 	
+of getHub: SYNC AND COMMIT!!!!!!
