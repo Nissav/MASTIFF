@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1307</ColumnWidth1></Debug-Log>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>980</ColumnWidth1><ColumnWidth2>261</ColumnWidth2><ColumnWidth3>65</ColumnWidth3></Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>212</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        <col-names>
+          
+          
+        <item>Disassembly</item><item>_I0</item></col-names>
+        <col-widths>
+          
+          
+        <item>500</item><item>20</item></col-widths>
+        <DisasmHistory/>
+        
+        
+      <PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><ShowCodeCoverage>1</ShowCodeCoverage><ShowInstrProfiling>1</ShowInstrProfiling></Disassembly>
+    <QuickWatch><col-names><item>Expression</item><item>Location</item><item>Type</item><item>Value</item></col-names><col-widths><item>100</item><item>150</item><item>100</item><item>100</item></col-widths><QWatchHistory><item>turnRad</item><item>rightSpeed</item><item>leftSpeed</item></QWatchHistory><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows></QuickWatch><WATCH_1><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><expressions><item>leftSpeed</item><item>goLeft</item><item>*(myData-&gt;goLeft)</item><item>speed</item><item>goStraight</item><item>turnRad</item><item>goRight</item><item>upButton</item><item>F2</item><item>F3</item><item>F4</item><item>pauseButton</item><item>upButton</item><item>downButton</item><item>leftButton</item><item>rightButton</item><item>upDistance</item><item>distances</item><item>servoPosition</item><item>downDistance</item><item>wheelTurnCountRight</item><item>wheelTurnCountLeft</item><item>obstacleFlag</item><item>wallFlag</item><item>overhangFlag</item><item>dropOffFlag</item><item>oldSpeed</item><item/></expressions><col-names><item>Expression</item><item>Location</item><item>Type</item><item>Value</item></col-names><col-widths><item>100</item><item>150</item><item>100</item><item>100</item></col-widths></WATCH_1></Static>
+    <Windows>
+      
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-25243-228</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-24720-238</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-3224-231</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>&lt;ws&gt;</ExpandedNode><ExpandedNode>&lt;ws&gt;/freertos_demo</ExpandedNode><ExpandedNode>&lt;ws&gt;/freertos_demo/Source</ExpandedNode><ExpandedNode>&lt;ws&gt;/timers</ExpandedNode><ExpandedNode>&lt;ws&gt;/timers/Source</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1><Wnd3><Tabs><Tab><Identity>TabID-28682-27044</Identity><TabName>Disassembly</TabName><Factory>Disassembly</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd3><Wnd5><Tabs><Tab><Identity>TabID-31069-15037</Identity><TabName>Watch 1</TabName><Factory>WATCH_1</Factory></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd5></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane/><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-030afca0><key>iaridepm.enu1</key></Toolbar-030afca0></Sizes></Row0><Row1><Sizes><Toolbar-102a9be8><key>debuggergui.enu1</key></Toolbar-102a9be8></Sizes></Row1></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>555</Bottom><Right>286</Right><x>-2</x><y>-2</y><xscreen>692</xscreen><yscreen>161</yscreen><sizeHorzCX>450521</sizeHorzCX><sizeHorzCY>205619</sizeHorzCY><sizeVertCX>187500</sizeVertCX><sizeVertCY>711367</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>555</Bottom><Right>170</Right><x>-2</x><y>-2</y><xscreen>835</xscreen><yscreen>208</yscreen><sizeHorzCX>543620</sizeHorzCX><sizeHorzCY>265645</sizeHorzCY><sizeVertCX>111979</sizeVertCX><sizeVertCY>711367</sizeVertCY></Rect></Wnd3></Sizes></Row0><Row1><Sizes><Wnd5><Rect><Top>-2</Top><Left>168</Left><Bottom>555</Bottom><Right>393</Right><x>168</x><y>-2</y><xscreen>225</xscreen><yscreen>228</yscreen><sizeHorzCX>146484</sizeHorzCX><sizeHorzCY>291188</sizeHorzCY><sizeVertCX>146484</sizeVertCX><sizeVertCY>711367</sizeVertCY></Rect></Wnd5></Sizes></Row1></Right><Bottom><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>159</Bottom><Right>1538</Right><x>-2</x><y>-2</y><xscreen>1540</xscreen><yscreen>161</yscreen><sizeHorzCX>1002604</sizeHorzCX><sizeHorzCY>205619</sizeHorzCY><sizeVertCX>450521</sizeVertCX><sizeVertCY>205619</sizeVertCY></Rect></Wnd0></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Project>
+
+
