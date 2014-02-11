@@ -1,0 +1,162 @@
+
+
+                                                                      Page 1
+ispLEVER 6.0.00.34.28.06  -  Device Utilization Chart         Tue Feb 11 14:01:40 2014
+
+
+
+--------------------------------------------------------------------------------
+
+Module                   : 'motordirdecode'
+
+--------------------------------------------------------------------------------
+
+Input files:
+
+    ABEL PLA file        : untitled.tt3
+    Device library       : P16V8AS.dev
+
+Output files:
+
+    Report file          : untitled.rpt
+    Programmer load file : untitled.jed
+
+--------------------------------------------------------------------------------
+
+
+                                                                      Page 2
+ispLEVER 6.0.00.34.28.06  -  Device Utilization Chart         Tue Feb 11 14:01:40 2014
+
+P16V8AS Programmed Logic:
+--------------------------------------------------------------------------------
+
+
+
+A1     = !(  in0 & in1 
+          #   !in0 & !in1 );
+
+A2     = !(  !in0 & in1 
+          #   in0 & !in1 );
+
+A3     = !(  in0 );
+
+A4     = !(  !in0 );
+
+
+
+                                                                      Page 3
+ispLEVER 6.0.00.34.28.06  -  Device Utilization Chart         Tue Feb 11 14:01:40 2014
+
+P16V8AS Chip Diagram:
+--------------------------------------------------------------------------------
+
+
+
+
+                                   P16V8AS
+
+                         +---------\       /---------+
+                         |          \     /          |
+                         |           -----           |
+                     in0 |  1                    20  | Vcc                     
+                         |                           |
+                     in1 |  2                    19  | !A2                     
+                         |                           |
+                         |  3                    18  | !A1                     
+                         |                           |
+                         |  4                    17  |                         
+                         |                           |
+                         |  5                    16  | !A4                     
+                         |                           |
+                         |  6                    15  | !A3                     
+                         |                           |
+                         |  7                    14  |                         
+                         |                           |
+                         |  8                    13  |                         
+                         |                           |
+                         |  9                    12  |                         
+                         |                           |
+                     GND | 10                    11  |                         
+                         |                           |
+                         |                           |
+                         `---------------------------'
+
+                        SIGNATURE: N/A
+
+
+                                                                      Page 4
+ispLEVER 6.0.00.34.28.06  -  Device Utilization Chart         Tue Feb 11 14:01:40 2014
+
+P16V8AS Resource Allocations:
+--------------------------------------------------------------------------------
+
+
+
+        Device        | Resource  |   Design    |
+       Resources      | Available | Requirement | Unused
+======================|===========|=============|==============
+                      |           |             |
+Input Pins:           |           |             |
+                      |           |             |
+          Input:      |     10    |      2      |    8 ( 80 %)
+                      |           |             |
+Output Pins:          |           |             |
+                      |           |             |
+          In/Out:     |      6    |      2      |    4 ( 66 %)
+          Output:     |      2    |      2      |    0 (  0 %)
+                      |           |             |
+Buried Nodes:         |           |             |
+                      |           |             |
+          Input Reg:  |      -    |      -      |    -
+            Pin Reg:  |      -    |      -      |    -
+          Buried Reg: |      -    |      -      |    -
+
+
+                                                                      Page 5
+ispLEVER 6.0.00.34.28.06  -  Device Utilization Chart         Tue Feb 11 14:01:40 2014
+
+P16V8AS Product Terms Distribution:
+--------------------------------------------------------------------------------
+
+
+
+            Signal                       |    Pin   | Terms | Terms | Terms
+             Name                        | Assigned | Used  |  Max  | Unused
+=========================================|==========|=======|=======|=======
+A1                                       |   18     |   2   |   8   |   6
+A2                                       |   19     |   2   |   8   |   6
+A3                                       |   15     |   1   |   8   |   7
+A4                                       |   16     |   1   |   8   |   7
+
+
+     ==== List of Inputs/Feedbacks ====
+
+Signal Name                              | Pin      | Pin Type
+=========================================|==========|=========
+in0                                      |    1     | INPUT
+in1                                      |    2     | INPUT
+
+
+                                                                      Page 6
+ispLEVER 6.0.00.34.28.06  -  Device Utilization Chart         Tue Feb 11 14:01:40 2014
+
+P16V8AS Unused Resources:
+--------------------------------------------------------------------------------
+
+
+
+ Pin   |  Pin   |   Product   | Flip-flop
+Number |  Type  |   Terms     |   Type
+=======|========|=============|==========
+    3  |  INPUT |      -      |    -   
+    4  |  INPUT |      -      |    -   
+    5  |  INPUT |      -      |    -   
+    6  |  INPUT |      -      |    -   
+    7  |  INPUT |      -      |    -   
+    8  |  INPUT |      -      |    -   
+    9  |  INPUT |      -      |    -   
+   11  |  INPUT |      -      |    -   
+   12  |  BIDIR | NORMAL  8   |    -   
+   13  |  BIDIR | NORMAL  8   |    -   
+   14  |  BIDIR | NORMAL  8   |    -   
+   17  |  BIDIR | NORMAL  8   |    -   
