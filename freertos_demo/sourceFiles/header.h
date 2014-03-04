@@ -37,6 +37,8 @@
 #define SERVO_CONT_PRIORITY_PAN 4
 #define SERVO_CONT_PRIORITY_TILT 4
 #define DIRECTION_CONT_PRIORITY 1
+#define SENSOR_POSITIONER_PRIORITY 3
+#define CAMERA_POSITIONER_PRIORITY 2
 
 //Task Stack Sizes
 #define MOTOR_STACK_SIZE        100
@@ -44,6 +46,8 @@
 #define SERVO_STACK_SIZE_PAN    100
 #define SERVO_STACK_SIZE_TILT   100
 #define DIRECTION_STACK_SIZE    100
+#define SENSOR_POSITIONER_STACK_SIZE 100
+#define CAMERA_POSITIONER_STACK_SIZE 100
 
 //Motor Control
 #define FULL_SPEED              1000
@@ -51,19 +55,30 @@
 #define SPEED_INC               100
 #define STOP                    0
 
+#define UPDATE_MOTOR_CONTROL_INTERVAL 1000
+
 //Servo Control (in 100 us)
 #define SERVO_INTERVAL          200
-#define SERVO_0                 10
-#define SERVO_18                11
-#define SERVO_36                12
-#define SERVO_54                13
-#define SERVO_72                14
+
+#define SERVO_0                 6
+#define SERVO_10                7
+#define SERVO_20                8
+#define SERVO_30                9
+#define SERVO_40                10
+#define SERVO_50                11
+#define SERVO_60                12
+#define SERVO_70                13
+#define SERVO_80                14
 #define SERVO_90                15
-#define SERVO_108               16
-#define SERVO_126               17
-#define SERVO_144               18
-#define SERVO_162               19
-#define SERVO_180               20
+#define SERVO_100               16
+#define SERVO_110               17
+#define SERVO_120               18
+#define SERVO_130               19
+#define SERVO_140               20
+#define SERVO_150               21
+#define SERVO_160               22
+#define SERVO_170               23
+#define SERVO_180               24
 
 //Servo Control (number of pwm intervals required for 18 degrees of change)
 #define SERVO_MOVE_PULSES       3
@@ -89,6 +104,7 @@ typedef struct {
     unsigned int*       servoCountOld;
     unsigned int*       servoPulse;
     unsigned int*       servoPosition;
+    xTaskHandle*        xSensorPositionerHandle;
 } servoContData;
 
 //Define dataset for servoControl (pan)
@@ -132,20 +148,43 @@ typedef struct {
     bool*               rightCorrectStraightAgain;
     unsigned long*      globalCount;
     unsigned long*      startCorrectionCount;
+    bool*               updateMotorControl;
 } directionContData;
+
+//Define dataset for sensorPositioner task
+typedef struct {
+    unsigned int*       servoCount;
+    unsigned int*       servoPosition;
+} sensorPositionerData;
+
+//Define dataset for cameraPositioner task
+typedef struct {
+    unsigned int*       servoCountPan;
+    unsigned int*       servoCountTilt;
+} cameraPositionerData;
 
 //Define dataset for the softwareInit
 typedef struct {
     xTaskHandle*        xMotorControlHandle;
     motorContData*      myMotorData;
+    
     xTaskHandle*        xServoControlHandle;
     servoContData*      myServoData;
+    
     xTaskHandle*        xServoControlHandlePan;
     servoContDataPan*   myServoDataPan;
+    
     xTaskHandle*        xServoControlHandleTilt;
     servoContDataTilt*  myServoDataTilt;
+    
     xTaskHandle*        xDirectionControlHandle;
     directionContData*  myDirectionControlData;
+    
+    xTaskHandle*        xSensorPositionerHandle;
+    sensorPositionerData* mySensorPositionerData;
+    
+    xTaskHandle*        xCameraPositionerHandle;
+    cameraPositionerData* myCameraPositionerData;
 } softwareInitData;
 
 //Function prototypes
@@ -156,5 +195,7 @@ int servoControlInit(xTaskHandle* xServoControlHandle, servoContData* myServoDat
 int servoControlInitPan(xTaskHandle* xServoControlHandlePan, servoContDataPan* myServoDataPan);
 int servoControlInitTilt(xTaskHandle* xServoControlHandleTilt, servoContDataTilt* myServoDataTilt);
 int directionControlInit(xTaskHandle* xDirectionControlHandle, directionContData* myDirectionData);
+int sensorPositionerInit(xTaskHandle* xSensorPositionerHandle, sensorPositionerData* mySensorPositionerData);
+int cameraPositionerInit(xTaskHandle* xCameraPositionerHandle, cameraPositionerData* myCameraPositionerData);
 
 #endif

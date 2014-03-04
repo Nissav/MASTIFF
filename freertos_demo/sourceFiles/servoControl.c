@@ -23,32 +23,50 @@ void servoCont(void* data) {
         switch (*(myData->servoCountOld)){
             case SERVO_0:     *(myData->servoPosition) = 0;
                               break;
-            case SERVO_18:    *(myData->servoPosition) = 1;
+            case SERVO_10:    *(myData->servoPosition) = 1;
                               break;
-            case SERVO_36:    *(myData->servoPosition) = 2;
+            case SERVO_20:    *(myData->servoPosition) = 2;
                               break;
-            case SERVO_54:    *(myData->servoPosition) = 3;
+            case SERVO_30:    *(myData->servoPosition) = 3;
                               break;
-            case SERVO_72:    *(myData->servoPosition) = 4;
+            case SERVO_40:    *(myData->servoPosition) = 4;
                               break;
-            case SERVO_90:    *(myData->servoPosition) = 5;
+            case SERVO_50:    *(myData->servoPosition) = 5;
                               break;
-            case SERVO_108:   *(myData->servoPosition) = 6;
+            case SERVO_60:   *(myData->servoPosition) = 6;
                               break;
-            case SERVO_126:   *(myData->servoPosition) = 7;
+            case SERVO_70:   *(myData->servoPosition) = 7;
                               break;
-            case SERVO_144:   *(myData->servoPosition) = 8;
+            case SERVO_80:   *(myData->servoPosition) = 8;
                               break;
-            case SERVO_162:   *(myData->servoPosition) = 9;
+            case SERVO_90:   *(myData->servoPosition) = 9;
                               break;
-            case SERVO_180:   *(myData->servoPosition) = 10;
+            case SERVO_100:   *(myData->servoPosition) = 10;
+                              break;
+            case SERVO_110:   *(myData->servoPosition) = 11;
+                              break;
+            case SERVO_120:     *(myData->servoPosition) = 12;
+                              break;
+            case SERVO_130:    *(myData->servoPosition) = 13;
+                              break;
+            case SERVO_140:    *(myData->servoPosition) = 14;
+                              break;
+            case SERVO_150:    *(myData->servoPosition) = 15;
+                              break;
+            case SERVO_160:    *(myData->servoPosition) = 16;
+                              break;
+            case SERVO_170:    *(myData->servoPosition) = 17;
+                              break;
+            case SERVO_180:   *(myData->servoPosition) = 18;
                               break;
             default:          *(myData->servoPosition) = 0;
                               break;
         }
         //Allow range finder measurements while still
         GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0xFF);
-        //Suspend task until measurement collected
+        vTaskSuspend(NULL);
+        //Allow for requests
+        vTaskResume(*(myData->xSensorPositionerHandle));
         vTaskSuspend(NULL);
       }
 }

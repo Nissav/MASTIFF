@@ -48,6 +48,8 @@ static xTaskHandle      xServoControlHandle;
 static xTaskHandle      xServoControlHandlePan;
 static xTaskHandle      xServoControlHandleTilt;
 static xTaskHandle      xDirectionControlHandle;
+static xTaskHandle      xSensorPositionerHandle;
+static xTaskHandle      xCameraPositionerHandle;
 
 //Global Variables
 //Time (100 us per count)
@@ -56,28 +58,30 @@ static unsigned long    globalCount     = 0;
 //Motor control
 static unsigned int     speed           = STOP;
 static unsigned int     turnRad         = 90;
+static unsigned int     updateMotorControlCount = 0;
+static bool             updateMotorControl = true;
 
 //Sensor servo control
-static unsigned int     servoCount      = 0;
+static unsigned int     servoCount      = SERVO_90;
 static unsigned int     servoCountOld   = SERVO_90;
 static unsigned int     servoCurCount   = 0;
 static unsigned int     servoPulse      = SERVO_MOVE_PULSES;
 static unsigned int     servoCurPulse   = 0;
 
-static unsigned int     servoPosition   = 5;
-static unsigned int     distances[11]   = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
+static unsigned int     servoPosition   = 9;
+static unsigned int     distances[19]   = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
 static unsigned int     upDistance      = 100;
 static unsigned int     downDistance    = 0;
 
 //Camera pan servo control
-static unsigned int     servoCountPan      = 0;
+static unsigned int     servoCountPan      = SERVO_90;
 static unsigned int     servoCountOldPan   = SERVO_90;
 static unsigned int     servoCurCountPan   = 0;
 static unsigned int     servoPulsePan      = SERVO_MOVE_PULSES;
 static unsigned int     servoCurPulsePan   = 0;
 
 //Camera tilt servo control
-static unsigned int     servoCountTilt      = 0;
+static unsigned int     servoCountTilt      = SERVO_90;
 static unsigned int     servoCountOldTilt   = SERVO_90;
 static unsigned int     servoCurCountTilt   = 0;
 static unsigned int     servoPulseTilt      = SERVO_MOVE_PULSES;
@@ -138,7 +142,7 @@ static unsigned long      startCorrectionCount = 0;
 
 //Data Set Initializations
 static motorContData    myMotorData = {&speed, &turnRad};
-static servoContData    myServoData = {&servoCount, &servoCountOld, &servoPulse, &servoPosition};
+static servoContData    myServoData = {&servoCount, &servoCountOld, &servoPulse, &servoPosition, &xSensorPositionerHandle};
 static servoContDataPan myServoDataPan = {&servoCountPan, &servoCountOldPan, &servoPulsePan};
 static servoContDataTilt myServoDataTilt = {&servoCountTilt, &servoCountOldTilt, &servoPulseTilt};
 static directionContData myDirectionControlData  =  {&goRight, &goLeft, &stuckFlag, 
@@ -146,14 +150,16 @@ static directionContData myDirectionControlData  =  {&goRight, &goLeft, &stuckFl
                         &upDistance, &downDistance, &overhangFlag, &dropOffFlag,
                         &leftTurnFlag, &rightTurnFlag, distances, &leftVeer, &rightVeer, &leftCorrectStraight, &rightCorrectStraight,
                         &leftCorrectRight, &rightCorrectLeft, &leftCorrectStraightAgain, &rightCorrectStraightAgain,
-                        &globalCount, &startCorrectionCount};
+                        &globalCount, &startCorrectionCount, &updateMotorControl};
+static sensorPositionerData mySensorPositionerData = {&servoCount, &servoPosition};
+static cameraPositionerData myCameraPositionerData = {&servoCountPan, &servoCountTilt};
 static softwareInitData mySoftInitData = {&xMotorControlHandle, &myMotorData, 
                         &xServoControlHandle, &myServoData, 
                         &xServoControlHandlePan, &myServoDataPan, 
                         &xServoControlHandleTilt, &myServoDataTilt, 
-                        &xDirectionControlHandle, &myDirectionControlData};
-
-
+                        &xDirectionControlHandle, &myDirectionControlData,
+                        &xSensorPositionerHandle, &mySensorPositionerData,
+                        &xCameraPositionerHandle, &myCameraPositionerData};
 
 //*****************************************************************************
 //
@@ -266,6 +272,13 @@ void Timer0IntHandler(void){
     if(servoCurPulseTilt > servoPulseTilt){
       servoCurPulseTilt = 0;
       vTaskResume(xServoControlHandleTilt);
+    }
+    
+    //Motor control update
+    updateMotorControlCount++;
+    if(updateMotorControlCount > UPDATE_MOTOR_CONTROL_INTERVAL){
+      updateMotorControlCount = 0;
+      updateMotorControl = true;
     }
 }
 

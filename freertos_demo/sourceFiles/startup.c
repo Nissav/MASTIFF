@@ -81,8 +81,6 @@ void hardwareInit( void ) {
     ROM_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0);
     ROM_GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD);
     
-    ROM_IntEnable(INT_GPIOF);    
-
     /*TIMER*/
     
     //Enable the peripherals used by this example
@@ -123,6 +121,20 @@ void softwareInit( softwareInitData* data ) {
     }
     
     if(servoControlInitTilt((data->xServoControlHandleTilt), (data->myServoDataTilt)) != 0)
+    {
+        while(1)
+        {
+        }
+    }
+    
+    if(sensorPositionerInit((data->xSensorPositionerHandle), (data->mySensorPositionerData)) != 0)
+    {
+        while(1)
+        {
+        }
+    }
+    
+    if(cameraPositionerInit((data->xCameraPositionerHandle), (data->myCameraPositionerData)) != 0)
     {
         while(1)
         {

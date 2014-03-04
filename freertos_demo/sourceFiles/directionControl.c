@@ -28,9 +28,9 @@ void directionCont(void* data) {
           
           
           //Detects if wall or obstacle is upcoming
-          if((*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain)) || (myData->distances[5]) < STRAIGHT_THRESHOLD * 2.0) {
+          if((*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain)) || (myData->distances[9]) < STRAIGHT_THRESHOLD * 2.0) {
               //Room to maneuver around obstacle to left
-             if((!(*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain))) && ((myData->distances[2]) > STRAIGHT_THRESHOLD / 1.4)) {
+             if((!(*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain))) && ((myData->distances[6]) > STRAIGHT_THRESHOLD / 1.4)) {
                   *(myData->turnRad) = 45;
                   *(myData->obstacleFlag) = true;
                   *(myData->leftVeer) = true;
@@ -38,7 +38,7 @@ void directionCont(void* data) {
                   vTaskResume(*(myData->xMotorControlHandle));
               } 
               //Room to maneuver around obstacle to right
-              else if((!(*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain))) && ((myData->distances[8]) > STRAIGHT_THRESHOLD / 1.4)) {
+              else if((!(*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain))) && ((myData->distances[12]) > STRAIGHT_THRESHOLD / 1.4)) {
                   *(myData->turnRad) = 135;
                   *(myData->obstacleFlag) = true;
                   *(myData->rightVeer) = true;
@@ -118,6 +118,14 @@ void directionCont(void* data) {
                   *(myData->wallFlag) = true;
               }
           }
+          //Move forward since there are no hazards
+          else {
+            *(myData->speed) = FULL_SPEED;
+            if(*(myData->updateMotorControl)){
+              vTaskResume(*(myData->xMotorControlHandle));
+              *(myData->updateMotorControl) = false;
+            }
+          }
         } 
       if(*(myData->goLeft)) {
             //If left turn available then turn left
@@ -134,7 +142,7 @@ void directionCont(void* data) {
         }
       if(*(myData->goRight)) {
             //If right turn available then turn right
-            if((myData->distances[10]) > TURN_THRESHOLD) {
+            if((myData->distances[18]) > TURN_THRESHOLD) {
                 *(myData->turnRad) = 180;
                 *(myData->rightTurnFlag) = true;
                 *(myData->goRight) = false;
