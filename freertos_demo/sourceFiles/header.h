@@ -30,6 +30,8 @@
 #include "driverlib/interrupt.h"
 #include "inc/hw_gpio.h"
 #include "driverlib/qei.h"
+#include "inc/hw_i2c.h"
+#include "driverlib/i2c.h"
 
 //Task Priorities
 #define MOTOR_CONT_PRIORITY     5
@@ -39,6 +41,7 @@
 #define DIRECTION_CONT_PRIORITY 1
 #define SENSOR_POSITIONER_PRIORITY 3
 #define CAMERA_POSITIONER_PRIORITY 2
+#define COMM_PRIORITY 1
 
 //Task Stack Sizes
 #define MOTOR_STACK_SIZE        100
@@ -48,6 +51,7 @@
 #define DIRECTION_STACK_SIZE    100
 #define SENSOR_POSITIONER_STACK_SIZE 100
 #define CAMERA_POSITIONER_STACK_SIZE 100
+#define COMM_STACK_SIZE         100
 
 //Motor Control
 #define FULL_SPEED              1000
@@ -91,6 +95,9 @@
 #define TURN_THRESHOLD          10
 #define UP_THRESHOLD            20
 #define DOWN_THRESHOLD          45
+
+//I2C Slave Channel
+#define SLAVE_ADDRESS 0x3C
 
 //Define dataset for motorControl
 typedef struct {
@@ -163,6 +170,11 @@ typedef struct {
     unsigned int*       servoCountTilt;
 } cameraPositionerData;
 
+//Define dataset for comm task
+typedef struct {
+    unsigned int*       commIn;
+} commData;
+
 //Define dataset for the softwareInit
 typedef struct {
     xTaskHandle*        xMotorControlHandle;
@@ -185,6 +197,9 @@ typedef struct {
     
     xTaskHandle*        xCameraPositionerHandle;
     cameraPositionerData* myCameraPositionerData;
+    
+    xTaskHandle*        xCommHandle;
+    commData*           myCommData;
 } softwareInitData;
 
 //Function prototypes
@@ -197,5 +212,6 @@ int servoControlInitTilt(xTaskHandle* xServoControlHandleTilt, servoContDataTilt
 int directionControlInit(xTaskHandle* xDirectionControlHandle, directionContData* myDirectionData);
 int sensorPositionerInit(xTaskHandle* xSensorPositionerHandle, sensorPositionerData* mySensorPositionerData);
 int cameraPositionerInit(xTaskHandle* xCameraPositionerHandle, cameraPositionerData* myCameraPositionerData);
+int commInit(xTaskHandle* xCommHandle, commData* myCommData);
 
 #endif

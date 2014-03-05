@@ -50,6 +50,7 @@ static xTaskHandle      xServoControlHandleTilt;
 static xTaskHandle      xDirectionControlHandle;
 static xTaskHandle      xSensorPositionerHandle;
 static xTaskHandle      xCameraPositionerHandle;
+static xTaskHandle      xCommHandle;
 
 //Global Variables
 //Time (100 us per count)
@@ -140,6 +141,9 @@ static bool               leftCorrectStraightAgain = false;
 static bool               rightCorrectStraightAgain = false;
 static unsigned long      startCorrectionCount = 0;
 
+//I2C
+static unsigned int       commIn = 0;
+
 //Data Set Initializations
 static motorContData    myMotorData = {&speed, &turnRad};
 static servoContData    myServoData = {&servoCount, &servoCountOld, &servoPulse, &servoPosition, &xSensorPositionerHandle};
@@ -153,13 +157,15 @@ static directionContData myDirectionControlData  =  {&goRight, &goLeft, &stuckFl
                         &globalCount, &startCorrectionCount, &updateMotorControl};
 static sensorPositionerData mySensorPositionerData = {&servoCount, &servoPosition};
 static cameraPositionerData myCameraPositionerData = {&servoCountPan, &servoCountTilt};
+static commData myCommData = {&commIn};
 static softwareInitData mySoftInitData = {&xMotorControlHandle, &myMotorData, 
                         &xServoControlHandle, &myServoData, 
                         &xServoControlHandlePan, &myServoDataPan, 
                         &xServoControlHandleTilt, &myServoDataTilt, 
                         &xDirectionControlHandle, &myDirectionControlData,
                         &xSensorPositionerHandle, &mySensorPositionerData,
-                        &xCameraPositionerHandle, &myCameraPositionerData};
+                        &xCameraPositionerHandle, &myCameraPositionerData,
+                        &xCommHandle, &myCommData};
 
 //*****************************************************************************
 //

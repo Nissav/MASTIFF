@@ -96,6 +96,31 @@ void hardwareInit( void ) {
 
     //Enable the timers
     ROM_TimerEnable(TIMER0_BASE, TIMER_A);
+    
+    /*I2C*/
+    //Enable the I2C1 peripheral
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C1);
+    
+    //Configure the pin muxing for I2C1
+    GPIOPinConfigure(GPIO_PA6_I2C1SCL);
+    GPIOPinConfigure(GPIO_PA7_I2C1SDA);
+    
+    //Select the I2C function for these pins
+    GPIOPinTypeI2C(GPIO_PORTA_BASE, GPIO_PIN_6 | GPIO_PIN_7);
+    
+    // Set GPIO Pins for Open-Drain operation (I have two Rpulls=10K Ohm to 5V on the SCL and SDA lines)
+    GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_6, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_OD);
+    GPIOPadConfigSet(GPIO_PORTA_BASE, GPIO_PIN_7, GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_OD);
+
+    // Give control to the I2C1 Module
+    GPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_6, GPIO_DIR_MODE_HW);
+    GPIODirModeSet(GPIO_PORTA_BASE, GPIO_PIN_7, GPIO_DIR_MODE_HW);
+    
+    // Enable the I2C1 slave Module
+    I2CSlaveEnable(I2C1_BASE);
+    
+    // Set the slave address to SLAVE_ADDRESS
+    I2CSlaveInit(I2C1_BASE, SLAVE_ADDRESS);
 }
 
 void softwareInit( softwareInitData* data ) {
@@ -142,6 +167,13 @@ void softwareInit( softwareInitData* data ) {
     }
       
     if(directionControlInit((data->xDirectionControlHandle), (data->myDirectionControlData)) != 0)
+    {
+        while(1)
+        {
+        }
+    }
+    
+    if(commInit((data->xCommHandle), (data->myCommData)) != 0)
     {
         while(1)
         {

@@ -975,6 +975,9 @@
       <name>$PROJ_DIR$\sourceFiles\cameraPositioner.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\sourceFiles\comm.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\sourceFiles\directionControl.c</name>
     </file>
     <file>
