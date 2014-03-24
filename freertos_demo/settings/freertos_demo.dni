@@ -27,12 +27,6 @@ Mode=0
 Graph=0
 Symbiont=0
 Exclusions=
-[Disassemble mode]
-mode=0
-[Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\comm.c}.12.13" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\comm.c}.17.13" 1 0 0 0 "" 0 ""
-Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -40,6 +34,12 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Disassemble mode]
+mode=0
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\comm.c}.12.13" 1 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\comm.c}.17.13" 1 0 0 0 "" 0 ""
+Count=2
 [Aliases]
 A0=_ "C:\DriverLib\build\DriverLib.test\driverlib\gpio.c" "C:\ti\TivaWare_C_Series-1.0\driverlib\gpio.c"
 A1=_ "C:\DriverLib\build\DriverLib.test\driverlib\sysctl.c" "C:\ti\TivaWare_C_Series-1.0\driverlib\sysctl.c"

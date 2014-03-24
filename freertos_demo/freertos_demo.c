@@ -9,7 +9,7 @@
 //      PA5:    Motor Control, DAC output data (chip select)
 //
 //      PORT B:
-//      PB2:    motorDirDecode LSB 
+//      PB2:    motorDirDecode LSB (in0 input for GAL)
 //      PB3:    
 //
 //      PORT C:
@@ -24,7 +24,7 @@
 //
 //      PORT E:
 //      PE0:    Servo Control
-//      PE4:    motorDirDecode MSB
+//      PE4:    motorDirDecode MSB (in1 input for GAL)
 //
 //      PORT F:
 //      PF0:    Pan Servo Control
