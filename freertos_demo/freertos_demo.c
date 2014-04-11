@@ -57,7 +57,7 @@ static xTaskHandle      xCommHandle;
 static unsigned long    globalCount     = 0;
 
 //Motor control
-static unsigned int     speed           = STOP;
+static unsigned int     speed           = FULL_SPEED;
 static unsigned int     turnRad         = 90;
 static unsigned int     updateMotorControlCount = 0;
 static bool             updateMotorControl = true;
@@ -91,6 +91,7 @@ static unsigned int     servoCurPulseTilt   = 0;
 //Navigation commands
 static bool             goRight         = false;
 static bool             goLeft          = false;
+static unsigned int     routine         = MAP_R;
 
 //Navigation states
 static bool             obstacleFlag    = false;
@@ -150,22 +151,22 @@ static servoContData    myServoData = {&servoCount, &servoCountOld, &servoPulse,
 static servoContDataPan myServoDataPan = {&servoCountPan, &servoCountOldPan, &servoPulsePan};
 static servoContDataTilt myServoDataTilt = {&servoCountTilt, &servoCountOldTilt, &servoPulseTilt};
 static directionContData myDirectionControlData  =  {&goRight, &goLeft, &stuckFlag, 
-                        &turnRad, &speed, &obstacleFlag, &wallFlag, &xMotorControlHandle, 
-                        &upDistance, &downDistance, &overhangFlag, &dropOffFlag,
-                        &leftTurnFlag, &rightTurnFlag, distances, &leftVeer, &rightVeer, &leftCorrectStraight, &rightCorrectStraight,
-                        &leftCorrectRight, &rightCorrectLeft, &leftCorrectStraightAgain, &rightCorrectStraightAgain,
-                        &globalCount, &startCorrectionCount, &updateMotorControl};
+&turnRad, &speed, &obstacleFlag, &wallFlag, &xMotorControlHandle, 
+&upDistance, &downDistance, &overhangFlag, &dropOffFlag,
+&leftTurnFlag, &rightTurnFlag, distances, &leftVeer, &rightVeer, &leftCorrectStraight, &rightCorrectStraight,
+&leftCorrectRight, &rightCorrectLeft, &leftCorrectStraightAgain, &rightCorrectStraightAgain,
+&globalCount, &startCorrectionCount, &updateMotorControl, &routine};
 static sensorPositionerData mySensorPositionerData = {&servoCount, &servoPosition};
 static cameraPositionerData myCameraPositionerData = {&servoCountPan, &servoCountTilt};
 static commData myCommData = {&commIn};
 static softwareInitData mySoftInitData = {&xMotorControlHandle, &myMotorData, 
-                        &xServoControlHandle, &myServoData, 
-                        &xServoControlHandlePan, &myServoDataPan, 
-                        &xServoControlHandleTilt, &myServoDataTilt, 
-                        &xDirectionControlHandle, &myDirectionControlData,
-                        &xSensorPositionerHandle, &mySensorPositionerData,
-                        &xCameraPositionerHandle, &myCameraPositionerData,
-                        &xCommHandle, &myCommData};
+&xServoControlHandle, &myServoData, 
+&xServoControlHandlePan, &myServoDataPan, 
+&xServoControlHandleTilt, &myServoDataTilt, 
+&xDirectionControlHandle, &myDirectionControlData,
+&xSensorPositionerHandle, &mySensorPositionerData,
+&xCameraPositionerHandle, &myCameraPositionerData,
+&xCommHandle, &myCommData};
 
 //*****************************************************************************
 //
@@ -185,24 +186,24 @@ __error__(char *pcFilename, uint32_t ui32Line)
 // Initialize FreeRTOS and start the initial set of tasks.
 //
 //*****************************************************************************
- int
+int
 main(void)
 {
-    hardwareInit();
-    softwareInit(&mySoftInitData);
-    
-    //
-    // Start the scheduler.  This should not return.
-    //
-    vTaskStartScheduler();
- 
-    //
-    // In case the scheduler returns for some reason, print an error and loop
-    // forever.
-    //
-    while(1)
-    {
-    }
+  hardwareInit();
+  softwareInit(&mySoftInitData);
+  
+  //
+  // Start the scheduler.  This should not return.
+  //
+  vTaskStartScheduler();
+  
+  //
+  // In case the scheduler returns for some reason, print an error and loop
+  // forever.
+  //
+  while(1)
+  {
+  }
 }
 
 //*****************************************************************************
@@ -213,14 +214,14 @@ main(void)
 void
 vApplicationStackOverflowHook(xTaskHandle *pxTask, char *pcTaskName)
 {
-    //
-    // This function can not return, so loop forever.  Interrupts are disabled
-    // on entry to this function, so no processor interrupts will interrupt
-    // this loop.
-    //
-    while(1)
-    {
-    }
+  //
+  // This function can not return, so loop forever.  Interrupts are disabled
+  // on entry to this function, so no processor interrupts will interrupt
+  // this loop.
+  //
+  while(1)
+  {
+  }
 }
 
 /*
@@ -229,63 +230,63 @@ globalCount. globalCount increments at a frequency of 10 kHz
 (increments every 100 us)
 */
 void Timer0IntHandler(void){
-    //Clear the timer interrupt
-    TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
-
-    //Increase the global time base
-    globalCount++;
-    
-    //Servo pwm generation (sensor)
-    servoCurCount++;
-    if(servoCurCount > SERVO_INTERVAL){
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
-      servoCurCount = 0;
-      servoCurPulse++;
-    }
-    if(servoCurCount > servoCountOld){
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0x00);
-    }
-    if(servoCurPulse > servoPulse){
-      servoCurPulse = 0;
-      vTaskResume(xServoControlHandle);
-    }
-    
-    //Servo pwm generation (pan)
-    servoCurCountPan++;
-    if(servoCurCountPan > SERVO_INTERVAL){
-      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0xFF);
-      servoCurCountPan = 0;
-      servoCurPulsePan++;
-    }
-    if(servoCurCountPan > servoCountOldPan){
-      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0x00);
-    }
-    if(servoCurPulsePan > servoPulsePan){
-      servoCurPulsePan = 0;
-      vTaskResume(xServoControlHandlePan);
-    }
-    
-    //Servo pwm generation (tilt)
-    servoCurCountTilt++;
-    if(servoCurCountTilt > SERVO_INTERVAL){
-      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xFF);
-      servoCurCountTilt = 0;
-      servoCurPulseTilt++;
-    }
-    if(servoCurCountTilt > servoCountOldTilt){
-      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x00);
-    }
-    if(servoCurPulseTilt > servoPulseTilt){
-      servoCurPulseTilt = 0;
-      vTaskResume(xServoControlHandleTilt);
-    }
-    
-    //Motor control update
-    updateMotorControlCount++;
-    if(updateMotorControlCount > UPDATE_MOTOR_CONTROL_INTERVAL){
-      updateMotorControlCount = 0;
-      updateMotorControl = true;
-    }
+  //Clear the timer interrupt
+  TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+  
+  //Increase the global time base
+  globalCount++;
+  
+  //Servo pwm generation (sensor)
+  servoCurCount++;
+  if(servoCurCount > SERVO_INTERVAL){
+    GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0xFF);
+    servoCurCount = 0;
+    servoCurPulse++;
+  }
+  if(servoCurCount > servoCountOld){
+    GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_0, 0x00);
+  }
+  if(servoCurPulse > servoPulse){
+    servoCurPulse = 0;
+    vTaskResume(xServoControlHandle);
+  }
+  
+  //Servo pwm generation (pan)
+  servoCurCountPan++;
+  if(servoCurCountPan > SERVO_INTERVAL){
+    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0xFF);
+    servoCurCountPan = 0;
+    servoCurPulsePan++;
+  }
+  if(servoCurCountPan > servoCountOldPan){
+    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0x00);
+  }
+  if(servoCurPulsePan > servoPulsePan){
+    servoCurPulsePan = 0;
+    vTaskResume(xServoControlHandlePan);
+  }
+  
+  //Servo pwm generation (tilt)
+  servoCurCountTilt++;
+  if(servoCurCountTilt > SERVO_INTERVAL){
+    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xFF);
+    servoCurCountTilt = 0;
+    servoCurPulseTilt++;
+  }
+  if(servoCurCountTilt > servoCountOldTilt){
+    GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x00);
+  }
+  if(servoCurPulseTilt > servoPulseTilt){
+    servoCurPulseTilt = 0;
+    vTaskResume(xServoControlHandleTilt);
+  }
+  
+  //Motor control update
+  updateMotorControlCount++;
+  if(updateMotorControlCount > UPDATE_MOTOR_CONTROL_INTERVAL){
+    updateMotorControlCount = 0;
+    updateMotorControl = true;
+  }
 }
 
 /*
@@ -345,6 +346,8 @@ void PortDIntHandler(void){
     turnRad = 90;
     curTurnRad = 90;
     turnInProgress = 0;
+    rightTurnFlag = false;
+    leftTurnFlag = false;
     vTaskResume(xMotorControlHandle);
   }
   GPIOIntClear(GPIO_PORTD_BASE, GPIO_PIN_6 | GPIO_PIN_7);
@@ -354,35 +357,35 @@ void PortDIntHandler(void){
 Range finder interrupt
 */
 void PortCIntHandler(void){
-    // Sweep range finder
-    if(lowToHighSweep == 0 && !GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6)){
-      lowToHighSweep = 1; //stop time
-      pulseStopSweep = globalCount;
-      distances[servoPosition] = (pulseStopSweep - pulseStartSweep) * 100 / 58;
-    }else if(lowToHighSweep == 1 && GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6)){
-      lowToHighSweep = 0; //start time
-      pulseStartSweep = globalCount;
-      GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0x00); //one pulse done
-    }
-    
-    // Up range finder
-    if(lowToHighUp == 0 && !GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5)){
-      lowToHighUp = 1; //stop time
-      pulseStopUp = globalCount;
-      upDistance = (pulseStopUp - pulseStartUp) * 100 / 58;
-    }else if(lowToHighUp == 1 && GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5)){
-      lowToHighUp = 0; //start time
-      pulseStartUp = globalCount;
-    }
-    
-    //Down range finder
-    if(lowToHighDown == 0 && !GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4)){
-      lowToHighDown = 1; //stop time
-      pulseStopDown = globalCount;
-      downDistance = (pulseStopDown - pulseStartDown) * 100 / 58;
-    }else if(lowToHighDown == 1 && GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4)){
-      lowToHighDown = 0; //start time
-      pulseStartDown = globalCount;
-    }
-    GPIOIntClear(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6);
+  // Sweep range finder
+  if(lowToHighSweep == 0 && !GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6)){
+    lowToHighSweep = 1; //stop time
+    pulseStopSweep = globalCount;
+    distances[servoPosition] = (pulseStopSweep - pulseStartSweep) * 100 / 58;
+  }else if(lowToHighSweep == 1 && GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6)){
+    lowToHighSweep = 0; //start time
+    pulseStartSweep = globalCount;
+    GPIOPinWrite(GPIO_PORTC_BASE, GPIO_PIN_7, 0x00); //one pulse done
+  }
+  
+  // Up range finder
+  if(lowToHighUp == 0 && !GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5)){
+    lowToHighUp = 1; //stop time
+    pulseStopUp = globalCount;
+    upDistance = (pulseStopUp - pulseStartUp) * 100 / 58;
+  }else if(lowToHighUp == 1 && GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5)){
+    lowToHighUp = 0; //start time
+    pulseStartUp = globalCount;
+  }
+  
+  //Down range finder
+  if(lowToHighDown == 0 && !GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4)){
+    lowToHighDown = 1; //stop time
+    pulseStopDown = globalCount;
+    downDistance = (pulseStopDown - pulseStartDown) * 100 / 58;
+  }else if(lowToHighDown == 1 && GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4)){
+    lowToHighDown = 0; //start time
+    pulseStartDown = globalCount;
+  }
+  GPIOIntClear(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6);
 }

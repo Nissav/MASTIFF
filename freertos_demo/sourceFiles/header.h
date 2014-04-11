@@ -91,115 +91,121 @@
 #define SERVO_HOLD_PULSES       5
 
 //Direction Control
-#define STRAIGHT_THRESHOLD      10
-#define TURN_THRESHOLD          10
-#define UP_THRESHOLD            20
-#define DOWN_THRESHOLD          45
+#define STRAIGHT_THRESHOLD      20
+#define TURN_THRESHOLD          40
+#define UP_THRESHOLD            1000
+#define DOWN_THRESHOLD          1000
+
+#define MAP_R                   0
+#define SEARCH_R                1
+#define DOCK_R                  2
+#define IDLE_R                  3
 
 //I2C Slave Channel
 #define SLAVE_ADDRESS 0x3C
 
 //Define dataset for motorControl
 typedef struct {
-    unsigned int*       speed;
-    unsigned int*       turnRad;
+  unsigned int*       speed;
+  unsigned int*       turnRad;
 } motorContData;
 
 //Define dataset for servoControl (sensor)
 typedef struct {
-    unsigned int*       servoCount;
-    unsigned int*       servoCountOld;
-    unsigned int*       servoPulse;
-    unsigned int*       servoPosition;
-    xTaskHandle*        xSensorPositionerHandle;
+  unsigned int*       servoCount;
+  unsigned int*       servoCountOld;
+  unsigned int*       servoPulse;
+  unsigned int*       servoPosition;
+  xTaskHandle*        xSensorPositionerHandle;
 } servoContData;
 
 //Define dataset for servoControl (pan)
 typedef struct {
-    unsigned int*       servoCountPan;
-    unsigned int*       servoCountOldPan;
-    unsigned int*       servoPulsePan;
+  unsigned int*       servoCountPan;
+  unsigned int*       servoCountOldPan;
+  unsigned int*       servoPulsePan;
 } servoContDataPan;
 
 //Define dataset for servoControl (tilt)
 typedef struct {
-    unsigned int*       servoCountTilt;
-    unsigned int*       servoCountOldTilt;
-    unsigned int*       servoPulseTilt;
+  unsigned int*       servoCountTilt;
+  unsigned int*       servoCountOldTilt;
+  unsigned int*       servoPulseTilt;
 } servoContDataTilt;
 
 //Define dataset for directionControl task
 typedef struct {
-    bool*               goRight;
-    bool*               goLeft;
-    bool*               stuckFlag;
-    unsigned int*       turnRad;
-    unsigned int*       speed;
-    bool*               obstacleFlag;
-    bool*               wallFlag;
-    xTaskHandle*        xMotorControlHandle;
-    unsigned int*       upDistance;
-    unsigned int*       downDistance;
-    bool*               overhangFlag;
-    bool*               dropOffFlag;
-    bool*               leftTurnFlag;
-    bool*               rightTurnFlag;
-    unsigned int*       distances;
-    bool*               leftVeer;
-    bool*               rightVeer;
-    bool*               leftCorrectStraight;
-    bool*               rightCorrectStraight;
-    bool*               leftCorrectRight;
-    bool*               rightCorrectLeft;
-    bool*               leftCorrectStraightAgain;
-    bool*               rightCorrectStraightAgain;
-    unsigned long*      globalCount;
-    unsigned long*      startCorrectionCount;
-    bool*               updateMotorControl;
+  bool*               goRight;
+  bool*               goLeft;
+  bool*               stuckFlag;
+  unsigned int*       turnRad;
+  unsigned int*       speed;
+  bool*               obstacleFlag;
+  bool*               wallFlag;
+  xTaskHandle*        xMotorControlHandle;
+  unsigned int*       upDistance;
+  unsigned int*       downDistance;
+  bool*               overhangFlag;
+  bool*               dropOffFlag;
+  bool*               leftTurnFlag;
+  bool*               rightTurnFlag;
+  unsigned int*       distances;
+  bool*               leftVeer;
+  bool*               rightVeer;
+  bool*               leftCorrectStraight;
+  bool*               rightCorrectStraight;
+  bool*               leftCorrectRight;
+  bool*               rightCorrectLeft;
+  bool*               leftCorrectStraightAgain;
+  bool*               rightCorrectStraightAgain;
+  unsigned long*      globalCount;
+  unsigned long*      startCorrectionCount;
+  bool*               updateMotorControl;
+  unsigned int*       routine;
 } directionContData;
 
 //Define dataset for sensorPositioner task
 typedef struct {
-    unsigned int*       servoCount;
-    unsigned int*       servoPosition;
+  unsigned int*       servoCount;
+  unsigned int*       servoPosition;
 } sensorPositionerData;
 
 //Define dataset for cameraPositioner task
 typedef struct {
-    unsigned int*       servoCountPan;
-    unsigned int*       servoCountTilt;
+  unsigned int*       servoCountPan;
+  unsigned int*       servoCountTilt;
 } cameraPositionerData;
 
 //Define dataset for comm task
 typedef struct {
-    unsigned int*       commIn;
+  unsigned int*       commIn;
 } commData;
 
 //Define dataset for the softwareInit
 typedef struct {
-    xTaskHandle*        xMotorControlHandle;
-    motorContData*      myMotorData;
-    
-    xTaskHandle*        xServoControlHandle;
-    servoContData*      myServoData;
-    
-    xTaskHandle*        xServoControlHandlePan;
-    servoContDataPan*   myServoDataPan;
-    
-    xTaskHandle*        xServoControlHandleTilt;
-    servoContDataTilt*  myServoDataTilt;
-    
-    xTaskHandle*        xDirectionControlHandle;
-    directionContData*  myDirectionControlData;
-    
-    xTaskHandle*        xSensorPositionerHandle;
-    sensorPositionerData* mySensorPositionerData;
-    
-    xTaskHandle*        xCameraPositionerHandle;
-    cameraPositionerData* myCameraPositionerData;
-    
-    xTaskHandle*        xCommHandle;
-    commData*           myCommData;
+  xTaskHandle*        xMotorControlHandle;
+  motorContData*      myMotorData;
+  
+  xTaskHandle*        xServoControlHandle;
+  servoContData*      myServoData;
+  
+  xTaskHandle*        xServoControlHandlePan;
+  servoContDataPan*   myServoDataPan;
+  
+  xTaskHandle*        xServoControlHandleTilt;
+  servoContDataTilt*  myServoDataTilt;
+  
+  xTaskHandle*        xDirectionControlHandle;
+  directionContData*  myDirectionControlData;
+  
+  xTaskHandle*        xSensorPositionerHandle;
+  sensorPositionerData* mySensorPositionerData;
+  
+  xTaskHandle*        xCameraPositionerHandle;
+  cameraPositionerData* myCameraPositionerData;
+  
+  xTaskHandle*        xCommHandle;
+  commData*           myCommData;
 } softwareInitData;
 
 //Function prototypes

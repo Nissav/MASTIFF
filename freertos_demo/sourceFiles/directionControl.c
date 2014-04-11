@@ -1,159 +1,116 @@
 #include "header.h"
 
 void directionCont(void* data) {
-    directionContData* myData = (directionContData*) data;
-    unsigned int oldSpeed;
-    
-    while (1) {
-      if(!(*(myData->goLeft) || *(myData->goRight))) {
-          //If overhang then stop
-          if((*(myData->upDistance)) < UP_THRESHOLD) {
-              *(myData->speed) = STOP;
-              *(myData->overhangFlag) = true;
-              vTaskResume(*(myData->xMotorControlHandle));
-          }
-          //If drop then stop
-          if((*(myData->downDistance)) > DOWN_THRESHOLD) {
-              *(myData->speed) = STOP;
-              *(myData->dropOffFlag) = true;
-              vTaskResume(*(myData->xMotorControlHandle));
-          }
-          //If obstacle then stop
-          if(((myData->distances[5]) < STRAIGHT_THRESHOLD) && !(*myData->stuckFlag)) {
-              oldSpeed = *(myData->speed);
-              *(myData->speed) = STOP;
-              *(myData->stuckFlag) = true;
-              vTaskResume(*(myData->xMotorControlHandle));
-          }
-          
-          
-          //Detects if wall or obstacle is upcoming
-          if((*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain)) || (myData->distances[9]) < STRAIGHT_THRESHOLD * 2.0) {
-              //Room to maneuver around obstacle to left
-             if((!(*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain))) && ((myData->distances[6]) > STRAIGHT_THRESHOLD / 1.4)) {
-                  *(myData->turnRad) = 45;
-                  *(myData->obstacleFlag) = true;
-                  *(myData->leftVeer) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-              } 
-              //Room to maneuver around obstacle to right
-              else if((!(*(myData->leftVeer) || *(myData->rightVeer) || *(myData->leftCorrectStraight) || *(myData->rightCorrectStraight) || *(myData->leftCorrectRight) || *(myData->rightCorrectLeft) || *(myData->leftCorrectStraightAgain) || *(myData->rightCorrectStraightAgain))) && ((myData->distances[12]) > STRAIGHT_THRESHOLD / 1.4)) {
-                  *(myData->turnRad) = 135;
-                  *(myData->obstacleFlag) = true;
-                  *(myData->rightVeer) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-              } 
-              else if(*(myData->leftVeer)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->turnRad) = 135;
-                  *(myData->leftVeer) = false;
-                  *(myData->leftCorrectStraight) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->rightVeer)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->turnRad) = 45;
-                  *(myData->rightVeer) = false;
-                  *(myData->rightCorrectStraight) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->leftCorrectStraight)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->turnRad) = 135;
-                  *(myData->leftCorrectStraight) = false;
-                  *(myData->leftCorrectRight) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->rightCorrectStraight)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->turnRad) = 45;
-                  *(myData->rightCorrectStraight) = false;
-                  *(myData->rightCorrectLeft) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->leftCorrectRight)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->turnRad) = 45;
-                  *(myData->leftCorrectRight) = false;
-                  *(myData->leftCorrectStraightAgain) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->rightCorrectLeft)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->turnRad) = 135;
-                  *(myData->rightCorrectLeft) = false;
-                  *(myData->rightCorrectStraightAgain) = true;
-                  *(myData->startCorrectionCount) = *(myData->globalCount);
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->leftCorrectStraightAgain)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->leftCorrectStraightAgain) = false;
-                  *(myData->startCorrectionCount) = 0;
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              else if(*(myData->rightCorrectStraightAgain)){
-                if(*(myData->globalCount) - *(myData->startCorrectionCount) > 20000){
-                  *(myData->rightCorrectStraightAgain) = false;
-                  *(myData->startCorrectionCount) = 0;
-                  vTaskResume(*(myData->xMotorControlHandle));
-                }
-              }
-              //obstacle is unavoidable
-              else {
-                  *(myData->wallFlag) = true;
-              }
-          }
-          //Move forward since there are no hazards
-          else {
-            *(myData->speed) = FULL_SPEED;
-            if(*(myData->updateMotorControl)){
-              vTaskResume(*(myData->xMotorControlHandle));
-              *(myData->updateMotorControl) = false;
-            }
-          }
-        } 
+  directionContData* myData = (directionContData*) data;
+  static unsigned int oldSpeed = 0;
+  static unsigned int testCount = 0; //TEST
+  static unsigned int testStage = 0; //TEST
+  while (1) { 
+    /*
+    //Map routine
+    if(*(myData->routine) == MAP_R){
+      //If overhang then stop
+      if((*(myData->upDistance)) < UP_THRESHOLD && !(*(myData->overhangFlag))) {
+        oldSpeed = *(myData->speed);
+        *(myData->speed) = STOP;
+        *(myData->overhangFlag) = true;
+        vTaskResume(*(myData->xMotorControlHandle));
+      }
+      //If drop then stop
+      if((*(myData->downDistance)) > DOWN_THRESHOLD && !(*(myData->dropOffFlag))) {
+        oldSpeed = *(myData->speed);
+        *(myData->speed) = STOP;
+        *(myData->dropOffFlag) = true;
+        vTaskResume(*(myData->xMotorControlHandle));
+      }
+      //If obstacle then stop
+      if(((myData->distances[9]) < STRAIGHT_THRESHOLD) && !(*(myData->stuckFlag))) {
+        oldSpeed = *(myData->speed);
+        *(myData->speed) = STOP;
+        *(myData->stuckFlag) = true;
+        vTaskResume(*(myData->xMotorControlHandle));
+      }
+      //If left turn requested then turn left
       if(*(myData->goLeft)) {
-            //If left turn available then turn left
-            if((myData->distances[0]) > TURN_THRESHOLD) {
-                *(myData->turnRad) = 0;
-                *(myData->leftTurnFlag) = true;
-                *(myData->goLeft) = false;
-                if(*(myData->stuckFlag)){
-                  *(myData->speed) = oldSpeed;
-                }
-                *(myData->stuckFlag) = false;
-                vTaskResume(*(myData->xMotorControlHandle));
-            }
+        if((myData->distances[0]) > TURN_THRESHOLD) {
+          *(myData->turnRad) = 0;
+          *(myData->leftTurnFlag) = true;
+          *(myData->goLeft) = false;
+          if((*(myData->stuckFlag)) || (*(myData->dropOffFlag)) || (*(myData->overhangFlag))){
+            *(myData->speed) = oldSpeed;
+          }
+          vTaskResume(*(myData->xMotorControlHandle));
         }
+      }
+      //If right turn requested then turn right
       if(*(myData->goRight)) {
-            //If right turn available then turn right
-            if((myData->distances[18]) > TURN_THRESHOLD) {
-                *(myData->turnRad) = 180;
-                *(myData->rightTurnFlag) = true;
-                *(myData->goRight) = false;
-                if(*(myData->stuckFlag)){
-                  *(myData->speed) = oldSpeed;
-                }
-                *(myData->stuckFlag) = false;
-                vTaskResume(*(myData->xMotorControlHandle));
-            }
+        if((myData->distances[18]) > TURN_THRESHOLD) {
+          *(myData->turnRad) = 180;
+          *(myData->rightTurnFlag) = true;
+          *(myData->goRight) = false;
+          if((*(myData->stuckFlag)) || (*(myData->dropOffFlag)) || (*(myData->overhangFlag))){
+            *(myData->speed) = oldSpeed;
+          }
+          vTaskResume(*(myData->xMotorControlHandle));
         }
+      }
+      
+      //When an overhang, drop, or obstacle is encountered turn left (if no corrective action is already being taken)
+      //Take every available right turn when going straight (if no corrective action is already being taken)
+      if(((*(myData->stuckFlag)) || (*(myData->dropOffFlag)) || (*(myData->overhangFlag))) && !(*(myData->rightTurnFlag)) && !(*(myData->leftTurnFlag))){
+        *(myData->goLeft) = true;
+      }else if(((myData->distances[18]) > TURN_THRESHOLD) && !(*(myData->rightTurnFlag)) && !(*(myData->leftTurnFlag))){
+        *(myData->goRight) = true;
+      }
     }
+    //Search routine
+    else if(*(myData->routine) == SEARCH_R){
+      
+    }
+    //Dock routine
+    else if(*(myData->routine) == DOCK_R){
+      
+    }
+    //Idle routine
+    else if(*(myData->routine) == IDLE_R){
+      
+    }
+    //Default routine
+    else{
+      
+    }
+    */
+    //TEST
+    *(myData->speed) = FULL_SPEED;
+    if(*(myData->updateMotorControl)){
+      testCount++;
+      if(testCount < 20){
+        if(testStage != 1){
+          testStage = 1;
+          *(myData->turnRad) = 90;
+        }
+      }else if(testCount < 40){
+        if(testStage != 2){
+          testStage = 2;
+          *(myData->turnRad) = 180;
+        }
+      }else if(testCount < 60){
+        if(testStage != 3){
+          testStage = 3;
+          *(myData->turnRad) = 90;
+        }
+      }else if(testCount < 80){
+        if(testStage != 4){
+          testStage = 4;
+          *(myData->turnRad) = 0;
+        }
+      }else{
+        testCount = 0;
+      }
+      vTaskResume(*(myData->xMotorControlHandle));
+      *(myData->updateMotorControl) = false;
+    }
+  }
 }
 
 //*****************************************************************************
@@ -164,17 +121,17 @@ void directionCont(void* data) {
 int
 directionControlInit(xTaskHandle* xDirectionControlHandle, directionContData* myDirectionData)
 {
-    //
-    // Create the directionControl task.
-    //
-    if(xTaskCreate(directionCont, (signed portCHAR *)"Direction Control", DIRECTION_STACK_SIZE, 
-                   myDirectionData, DIRECTION_CONT_PRIORITY, xDirectionControlHandle) != pdTRUE)
-    {
-        return(1);
-    }
-
-    //
-    // Success.
-    //
-    return(0);
+  //
+  // Create the directionControl task.
+  //
+  if(xTaskCreate(directionCont, (signed portCHAR *)"Direction Control", DIRECTION_STACK_SIZE, 
+                 myDirectionData, DIRECTION_CONT_PRIORITY, xDirectionControlHandle) != pdTRUE)
+  {
+    return(1);
+  }
+  
+  //
+  // Success.
+  //
+  return(0);
 }
