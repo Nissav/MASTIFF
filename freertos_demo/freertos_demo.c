@@ -348,13 +348,16 @@ void PortDIntHandler(void){
     turnInProgress = 0;
     rightTurnFlag = false;
     leftTurnFlag = false;
+    stuckFlag = false;
+    dropOffFlag = false;
+    overhangFlag = false;
     vTaskResume(xMotorControlHandle);
   }
   GPIOIntClear(GPIO_PORTD_BASE, GPIO_PIN_6 | GPIO_PIN_7);
 }
 
 /*
-Range finder interrupt
+Range finder interrupt (sweep, up, and down)
 */
 void PortCIntHandler(void){
   // Sweep range finder

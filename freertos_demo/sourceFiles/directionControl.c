@@ -6,7 +6,6 @@ void directionCont(void* data) {
   static unsigned int testCount = 0; //TEST
   static unsigned int testStage = 0; //TEST
   while (1) { 
-    /*
     //Map routine
     if(*(myData->routine) == MAP_R){
       //If overhang then stop
@@ -79,29 +78,32 @@ void directionCont(void* data) {
     else{
       
     }
-    */
+    /*
     //TEST
-    *(myData->speed) = FULL_SPEED;
     if(*(myData->updateMotorControl)){
       testCount++;
       if(testCount < 20){
         if(testStage != 1){
           testStage = 1;
+          *(myData->speed) = 500;
           *(myData->turnRad) = 90;
         }
       }else if(testCount < 40){
         if(testStage != 2){
           testStage = 2;
+          *(myData->speed) = 500;
           *(myData->turnRad) = 180;
         }
       }else if(testCount < 60){
         if(testStage != 3){
           testStage = 3;
+          *(myData->speed) = 500;
           *(myData->turnRad) = 90;
         }
       }else if(testCount < 80){
         if(testStage != 4){
           testStage = 4;
+          *(myData->speed) = 500;
           *(myData->turnRad) = 0;
         }
       }else{
@@ -110,6 +112,7 @@ void directionCont(void* data) {
       vTaskResume(*(myData->xMotorControlHandle));
       *(myData->updateMotorControl) = false;
     }
+    */
   }
 }
 

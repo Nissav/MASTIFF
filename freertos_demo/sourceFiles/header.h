@@ -92,8 +92,8 @@
 
 //Direction Control
 #define STRAIGHT_THRESHOLD      20
-#define TURN_THRESHOLD          40
-#define UP_THRESHOLD            1000
+#define TURN_THRESHOLD          60
+#define UP_THRESHOLD            1
 #define DOWN_THRESHOLD          1000
 
 #define MAP_R                   0

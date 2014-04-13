@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# IAR ELF Linker V6.40.1.53790/W32 for ARM              10/Apr/2014  16:56:26 #
+# IAR ELF Linker V6.40.1.53790/W32 for ARM              11/Apr/2014  15:44:31 #
 # Copyright 2007-2012 IAR Systems AB.                                         #
 #                                                                             #
 #    Output file  =  C:\ti\TivaWare_C_Series-1.0\examples\boards\ek-tm4c123gx #
@@ -82,7 +82,7 @@ __SystemLibrary = DLib
   .intvec            const    0x00000000   0x26c  startup_ewarm.o [1]
                             - 0x0000026c   0x26c
 
-"P1":                                     0x1824
+"P1":                                     0x18ec
   .text              ro code  0x0000026c   0x470  tasks.o [1]
   .text              ro code  0x000006dc    0xd8  heap_2.o [1]
   .text              ro code  0x000007b4    0x3a  ABImemset48.o [6]
@@ -92,86 +92,82 @@ __SystemLibrary = DLib
   .text              ro code  0x000008dc    0xb8  port.o [1]
   CODE               ro code  0x00000994    0xa0  portasm.o [1]
   .text              ro code  0x00000a34    0x62  memcmp.o [6]
-  .text              ro code  0x00000a98   0x2c4  freertos_demo.o [1]
-  .text              ro code  0x00000d5c    0x5e  ABImemset.o [6]
-  .text              ro code  0x00000dbc   0x2c6  startup.o [1]
-  .text              ro code  0x00001084     0x4  timer.o [4]
-  .text              ro code  0x00001088    0xd8  gpio.o [4]
-  .text              ro code  0x00001160    0x20  sysctl.o [4]
-  .text              ro code  0x00001180    0x2c  i2c.o [4]
-  .text              ro code  0x000011ac   0x18c  motorControl.o [1]
-  .text              ro code  0x00001338   0x124  servoControl.o [1]
-  .text              ro code  0x0000145c    0x6c  servoControlPan.o [1]
-  .text              ro code  0x000014c8    0x6c  servoControlTilt.o [1]
-  .text              ro code  0x00001534    0x58  sensorPositioner.o [1]
-  .text              ro code  0x0000158c    0x38  cameraPositioner.o [1]
-  .text              ro code  0x000015c4    0xa4  directionControl.o [1]
-  .text              ro code  0x00001668    0x40  comm.o [1]
-  .text              ro code  0x000016a8   0x16a  lz77_init3c.o [6]
-  .text              ro code  0x00001812     0x6  abort.o [3]
-  .text              ro code  0x00001818    0x14  exit.o [7]
-  .text              ro code  0x0000182c    0x28  data_init3.o [6]
-  .iar.init_table    const    0x00001854    0x2c  - Linker created -
-  .text              ro code  0x00001880    0x1a  startup_ewarm.o [1]
-  .text              ro code  0x0000189a     0xc  cstartup_M.o [6]
-  .text              ro code  0x000018a8    0x1a  fpinit_M.o [5]
-  .text              ro code  0x000018c4    0x16  cmain.o [6]
-  .text              ro code  0x000018da     0x4  low_level_init.o [3]
-  .text              ro code  0x000018de     0x4  exit.o [3]
-  .text              ro code  0x000018e4     0xa  cexit.o [6]
-  .rodata            const    0x000018f0    0x14  cameraPositioner.o [1]
-  .rodata            const    0x00001904    0x14  directionControl.o [1]
-  .rodata            const    0x00001918    0x14  sensorPositioner.o [1]
-  .rodata            const    0x0000192c    0x14  servoControlPan.o [1]
-  .rodata            const    0x00001940    0x14  servoControlTilt.o [1]
-  .rodata            const    0x00001954    0x14  tasks.o [1]
-  .rodata            const    0x00001968    0x10  comm.o [1]
-  .rodata            const    0x00001978    0x10  motorControl.o [1]
-  .rodata            const    0x00001988    0x10  servoControl.o [1]
-  .rodata            const    0x00001998     0x8  tasks.o [1]
-  .rodata            const    0x000019a0     0x0  zero_init3.o [6]
-  .rodata            const    0x000019a0     0x0  lz77_init3c.o [6]
-  Initializer bytes  ro data  0x000019a0    0xee  <for P2 s0>
-                            - 0x00001a8e  0x1822
+  .text              ro code  0x00000a98   0x2cc  freertos_demo.o [1]
+  .text              ro code  0x00000d64    0x5e  ABImemset.o [6]
+  .text              ro code  0x00000dc4   0x2c6  startup.o [1]
+  .text              ro code  0x0000108c     0x4  timer.o [4]
+  .text              ro code  0x00001090    0xd8  gpio.o [4]
+  .text              ro code  0x00001168    0x20  sysctl.o [4]
+  .text              ro code  0x00001188    0x2c  i2c.o [4]
+  .text              ro code  0x000011b4   0x18c  motorControl.o [1]
+  .text              ro code  0x00001340   0x124  servoControl.o [1]
+  .text              ro code  0x00001464    0x6c  servoControlPan.o [1]
+  .text              ro code  0x000014d0    0x6c  servoControlTilt.o [1]
+  .text              ro code  0x0000153c    0x58  sensorPositioner.o [1]
+  .text              ro code  0x00001594    0x38  cameraPositioner.o [1]
+  .text              ro code  0x000015cc   0x168  directionControl.o [1]
+  .text              ro code  0x00001734    0x40  comm.o [1]
+  .text              ro code  0x00001774   0x16a  lz77_init3c.o [6]
+  .text              ro code  0x000018de     0x6  abort.o [3]
+  .text              ro code  0x000018e4    0x14  exit.o [7]
+  .text              ro code  0x000018f8    0x28  data_init3.o [6]
+  .iar.init_table    const    0x00001920    0x2c  - Linker created -
+  .text              ro code  0x0000194c    0x1a  startup_ewarm.o [1]
+  .text              ro code  0x00001966     0xc  cstartup_M.o [6]
+  .text              ro code  0x00001974    0x1a  fpinit_M.o [5]
+  .text              ro code  0x00001990    0x16  cmain.o [6]
+  .text              ro code  0x000019a6     0x4  low_level_init.o [3]
+  .text              ro code  0x000019aa     0x4  exit.o [3]
+  .text              ro code  0x000019b0     0xa  cexit.o [6]
+  .rodata            const    0x000019bc    0x14  cameraPositioner.o [1]
+  .rodata            const    0x000019d0    0x14  directionControl.o [1]
+  .rodata            const    0x000019e4    0x14  sensorPositioner.o [1]
+  .rodata            const    0x000019f8    0x14  servoControlPan.o [1]
+  .rodata            const    0x00001a0c    0x14  servoControlTilt.o [1]
+  .rodata            const    0x00001a20    0x14  tasks.o [1]
+  .rodata            const    0x00001a34    0x10  comm.o [1]
+  .rodata            const    0x00001a44    0x10  motorControl.o [1]
+  .rodata            const    0x00001a54    0x10  servoControl.o [1]
+  .rodata            const    0x00001a64     0x8  tasks.o [1]
+  .rodata            const    0x00001a6c     0x0  zero_init3.o [6]
+  .rodata            const    0x00001a6c     0x0  lz77_init3c.o [6]
+  Initializer bytes  ro data  0x00001a6c    0xec  <for P2 s0>
+                            - 0x00001b58  0x18ec
 
-"P2", part 1 of 3:                         0x298
-  P2 s0                       0x20000000   0x298  <Init block>
+"P2", part 1 of 3:                         0x2a0
+  P2 s0                       0x20000000   0x29c  <Init block>
     .data            inited   0x20000000    0xa0  tasks.o [1]
     .data            inited   0x200000a0    0x74  freertos_demo.o [1]
     .data            inited   0x20000114    0x6c  freertos_demo.o [1]
     .data            inited   0x20000180    0x44  freertos_demo.o [1]
     .data            inited   0x200001c4    0x40  freertos_demo.o [1]
-    .data            inited   0x20000204    0x2c  freertos_demo.o [1]
-    .data            inited   0x20000230    0x14  freertos_demo.o [1]
-    .data            inited   0x20000244     0xc  freertos_demo.o [1]
-    .data            inited   0x20000250     0xc  freertos_demo.o [1]
-    .data            inited   0x2000025c     0xc  heap_2.o [1]
-    .data            inited   0x20000268     0x8  freertos_demo.o [1]
-    .data            inited   0x20000270     0x8  freertos_demo.o [1]
-    .data            inited   0x20000278     0x8  freertos_demo.o [1]
-    .data            inited   0x20000280     0x4  freertos_demo.o [1]
+    .data            inited   0x20000204    0x30  freertos_demo.o [1]
+    .data            inited   0x20000234    0x14  freertos_demo.o [1]
+    .data            inited   0x20000248     0xc  freertos_demo.o [1]
+    .data            inited   0x20000254     0xc  freertos_demo.o [1]
+    .data            inited   0x20000260     0xc  heap_2.o [1]
+    .data            inited   0x2000026c     0x8  freertos_demo.o [1]
+    .data            inited   0x20000274     0x8  freertos_demo.o [1]
+    .data            inited   0x2000027c     0x8  freertos_demo.o [1]
     .data            inited   0x20000284     0x4  freertos_demo.o [1]
     .data            inited   0x20000288     0x4  freertos_demo.o [1]
     .data            inited   0x2000028c     0x4  freertos_demo.o [1]
     .data            inited   0x20000290     0x4  freertos_demo.o [1]
-    .data            inited   0x20000294     0x4  port.o [1]
-                            - 0x20000298   0x298
+    .data            inited   0x20000294     0x4  freertos_demo.o [1]
+    .data            inited   0x20000298     0x4  port.o [1]
+                            - 0x2000029c   0x29c
 
-"P2", part 2 of 3:                        0x76b0
-  .bss               zero     0x20000298  0x753c  heap_2.o [1]
-  .bss               zero     0x200077d4   0x140  tasks.o [1]
-  .bss               zero     0x20007914     0x8  directionControl.o [1]
-  .bss               zero     0x2000791c     0x4  freertos_demo.o [1]
+"P2", part 2 of 3:                        0x76a8
+  .bss               zero     0x200002a0  0x753c  heap_2.o [1]
+  .bss               zero     0x200077dc   0x140  tasks.o [1]
+  .bss               zero     0x2000791c     0x4  directionControl.o [1]
   .bss               zero     0x20007920     0x4  freertos_demo.o [1]
   .bss               zero     0x20007924     0x4  freertos_demo.o [1]
   .bss               zero     0x20007928     0x4  freertos_demo.o [1]
   .bss               zero     0x2000792c     0x4  freertos_demo.o [1]
   .bss               zero     0x20007930     0x4  freertos_demo.o [1]
   .bss               zero     0x20007934     0x4  freertos_demo.o [1]
-  .bss               zero     0x20007938     0x1  freertos_demo.o [1]
-  .bss               zero     0x20007939     0x1  freertos_demo.o [1]
-  .bss               zero     0x2000793a     0x1  freertos_demo.o [1]
-  .bss               zero     0x2000793b     0x1  freertos_demo.o [1]
+  .bss               zero     0x20007938     0x4  freertos_demo.o [1]
   .bss               zero     0x2000793c     0x1  freertos_demo.o [1]
   .bss               zero     0x2000793d     0x1  freertos_demo.o [1]
   .bss               zero     0x2000793e     0x1  freertos_demo.o [1]
@@ -183,7 +179,8 @@ __SystemLibrary = DLib
   .bss               zero     0x20007944     0x1  freertos_demo.o [1]
   .bss               zero     0x20007945     0x1  freertos_demo.o [1]
   .bss               zero     0x20007946     0x1  freertos_demo.o [1]
-                            - 0x20007947  0x76af
+  .bss               zero     0x20007947     0x1  freertos_demo.o [1]
+                            - 0x20007948  0x76a8
 
 "P2", part 3 of 3:                         0x200
   .noinit            uninit   0x20007948   0x200  startup_ewarm.o [1]
@@ -197,14 +194,14 @@ __SystemLibrary = DLib
           Address     Size
           -------     ----
 Zero (__iar_zero_init3)
-    1 destination range, total size 0x76af:
-          0x20000298  0x76af
+    1 destination range, total size 0x76a8:
+          0x200002a0  0x76a8
 
 Copy/lz77 (__iar_lz77_init3)
-    1 source range, total size 0xee (35% of destination):
-          0x000019a0    0xee
-    1 destination range, total size 0x298:
-          0x20000000   0x298
+    1 source range, total size 0xec (35% of destination):
+          0x00001a6c    0xec
+    1 destination range, total size 0x29c:
+          0x20000000   0x29c
 
 
 
@@ -217,9 +214,9 @@ Copy/lz77 (__iar_lz77_init3)
 C:\ti\TivaWare_C_Series-1.0\examples\boards\ek-tm4c123gxl\freertos_demo\ewarm\Obj: [1]
     cameraPositioner.o       56       20
     comm.o                   64       16
-    directionControl.o      164       20        8
-    freertos_demo.o         708      175      531
-    heap_2.o                216        4   30 024
+    directionControl.o      360       20        4
+    freertos_demo.o         716      173      532
+    heap_2.o                216        5   30 024
     list.o                   96
     motorControl.o          396       16
     port.o                  184        2        4
@@ -230,9 +227,9 @@ C:\ti\TivaWare_C_Series-1.0\examples\boards\ek-tm4c123gxl\freertos_demo\ewarm\Ob
     servoControlTilt.o      108       20
     startup.o               710
     startup_ewarm.o          26      620      512
-    tasks.o               1 136       85      480
+    tasks.o               1 136       84      480
     ---------------------------------------------
-    Total:                4 512    1 034   31 559
+    Total:                4 716    1 032   31 556
 
 command line: [2]
     ---------------------------------------------
@@ -280,7 +277,7 @@ shb_l.a: [7]
     Gaps                     12        2
     Linker created                    44
 -------------------------------------------------
-    Grand Total:          5 718    1 080   31 559
+    Grand Total:          5 922    1 078   31 556
 
 
 *******************************************************************************
@@ -289,88 +286,88 @@ shb_l.a: [7]
 
 Entry                      Address    Size  Type      Object
 -----                      -------    ----  ----      ------
-?main                   0x000018c5          Code  Gb  cmain.o [6]
-FaultISR                0x00001897     0x2  Code  Lc  startup_ewarm.o [1]
-GPIOIntClear            0x0000108f     0x6  Code  Gb  gpio.o [4]
-GPIOIntEnable           0x00001089     0x6  Code  Gb  gpio.o [4]
-GPIOPinConfigure        0x000010a1    0x3a  Code  Gb  gpio.o [4]
-GPIOPinRead             0x00001095     0x6  Code  Gb  gpio.o [4]
-GPIOPinWrite            0x0000109b     0x6  Code  Gb  gpio.o [4]
-I2CSlaveDataPut         0x000011a7     0x6  Code  Gb  i2c.o [4]
-I2CSlaveEnable          0x00001193    0x14  Code  Gb  i2c.o [4]
-I2CSlaveInit            0x00001181    0x12  Code  Gb  i2c.o [4]
-InStream_Read           0x000016a9    0x28  Code  Lc  lz77_init3c.o [6]
-IntDefaultHandler       0x00001899     0x2  Code  Lc  startup_ewarm.o [1]
-NmiSR                   0x00001895     0x2  Code  Lc  startup_ewarm.o [1]
-PortCIntHandler         0x00000c6d    0xc4  Code  Gb  freertos_demo.o [1]
-PortDIntHandler         0x00000b93    0xd2  Code  Gb  freertos_demo.o [1]
-Region$$Table$$Base     0x00001854           --   Gb  - Linker created -
-Region$$Table$$Limit    0x00001880           --   Gb  - Linker created -
-ResetISR                0x00001881     0xe  Code  Gb  startup_ewarm.o [1]
-SysCtlPeripheralEnable  0x00001161     0x8  Code  Gb  sysctl.o [4]
+?main                   0x00001991          Code  Gb  cmain.o [6]
+FaultISR                0x00001963     0x2  Code  Lc  startup_ewarm.o [1]
+GPIOIntClear            0x00001097     0x6  Code  Gb  gpio.o [4]
+GPIOIntEnable           0x00001091     0x6  Code  Gb  gpio.o [4]
+GPIOPinConfigure        0x000010a9    0x3a  Code  Gb  gpio.o [4]
+GPIOPinRead             0x0000109d     0x6  Code  Gb  gpio.o [4]
+GPIOPinWrite            0x000010a3     0x6  Code  Gb  gpio.o [4]
+I2CSlaveDataPut         0x000011af     0x6  Code  Gb  i2c.o [4]
+I2CSlaveEnable          0x0000119b    0x14  Code  Gb  i2c.o [4]
+I2CSlaveInit            0x00001189    0x12  Code  Gb  i2c.o [4]
+InStream_Read           0x00001775    0x28  Code  Lc  lz77_init3c.o [6]
+IntDefaultHandler       0x00001965     0x2  Code  Lc  startup_ewarm.o [1]
+NmiSR                   0x00001961     0x2  Code  Lc  startup_ewarm.o [1]
+PortCIntHandler         0x00000c73    0xc4  Code  Gb  freertos_demo.o [1]
+PortDIntHandler         0x00000b93    0xd8  Code  Gb  freertos_demo.o [1]
+Region$$Table$$Base     0x00001920           --   Gb  - Linker created -
+Region$$Table$$Limit    0x0000194c           --   Gb  - Linker created -
+ResetISR                0x0000194d     0xe  Code  Gb  startup_ewarm.o [1]
+SysCtlPeripheralEnable  0x00001169     0x8  Code  Gb  sysctl.o [4]
 Timer0IntHandler        0x00000aab    0xde  Code  Gb  freertos_demo.o [1]
-TimerIntClear           0x00001085     0x4  Code  Gb  timer.o [4]
+TimerIntClear           0x0000108d     0x4  Code  Gb  timer.o [4]
 __aeabi_memset4         0x000007b5          Code  Gb  ABImemset48.o [6]
 __aeabi_memset8         0x000007b5          Code  Gb  ABImemset48.o [6]
-__cmain                 0x000018c5          Code  Gb  cmain.o [6]
-__exit                  0x00001819    0x14  Code  Gb  exit.o [7]
+__cmain                 0x00001991          Code  Gb  cmain.o [6]
+__exit                  0x000018e5    0x14  Code  Gb  exit.o [7]
 __iar_Memset4_word      0x000007bd          Code  Gb  ABImemset48.o [6]
 __iar_Memset8_word      0x000007bd          Code  Gb  ABImemset48.o [6]
-__iar_Memset_word       0x00000d5d          Code  Gb  ABImemset.o [6]
-__iar_data_init3        0x0000182d    0x28  Code  Gb  data_init3.o [6]
-__iar_init_vfp          0x000018a9          Code  Gb  fpinit_M.o [5]
-__iar_lz77_init3        0x000016d1   0x13e  Code  Gb  lz77_init3c.o [6]
-__iar_program_start     0x0000189b          Code  Gb  cstartup_M.o [6]
+__iar_Memset_word       0x00000d65          Code  Gb  ABImemset.o [6]
+__iar_data_init3        0x000018f9    0x28  Code  Gb  data_init3.o [6]
+__iar_init_vfp          0x00001975          Code  Gb  fpinit_M.o [5]
+__iar_lz77_init3        0x0000179d   0x13e  Code  Gb  lz77_init3c.o [6]
+__iar_program_start     0x00001967          Code  Gb  cstartup_M.o [6]
 __iar_zero_init3        0x000007ef    0x22  Code  Gb  zero_init3.o [6]
-__low_level_init        0x000018db     0x4  Code  Gb  low_level_init.o [3]
+__low_level_init        0x000019a7     0x4  Code  Gb  low_level_init.o [3]
 __vector_table          0x00000000   0x26c  Data  Gb  startup_ewarm.o [1]
-_call_main              0x000018d1          Code  Gb  cmain.o [6]
-_exit                   0x000018e5          Code  Gb  cexit.o [6]
-_main                   0x000018d7          Code  Gb  cmain.o [6]
-abort                   0x00001813     0x6  Code  Gb  abort.o [3]
-cameraPositioner        0x0000158d     0x8  Code  Gb  cameraPositioner.o [1]
-cameraPositionerInit    0x00001595    0x28  Code  Gb  cameraPositioner.o [1]
-comm                    0x00001669     0xa  Code  Gb  comm.o [1]
-commIn                  0x20007934     0x4  Data  Lc  freertos_demo.o [1]
-commInit                0x00001673    0x28  Code  Gb  comm.o [1]
-curTurnRad              0x20000220     0x4  Data  Lc  freertos_demo.o [1]
-directionCont           0x000015c5    0x6e  Code  Gb  directionControl.o [1]
-directionControlInit    0x00001633    0x28  Code  Gb  directionControl.o [1]
+_call_main              0x0000199d          Code  Gb  cmain.o [6]
+_exit                   0x000019b1          Code  Gb  cexit.o [6]
+_main                   0x000019a3          Code  Gb  cmain.o [6]
+abort                   0x000018df     0x6  Code  Gb  abort.o [3]
+cameraPositioner        0x00001595     0x8  Code  Gb  cameraPositioner.o [1]
+cameraPositionerInit    0x0000159d    0x28  Code  Gb  cameraPositioner.o [1]
+comm                    0x00001735     0xa  Code  Gb  comm.o [1]
+commIn                  0x20007938     0x4  Data  Lc  freertos_demo.o [1]
+commInit                0x0000173f    0x28  Code  Gb  comm.o [1]
+curTurnRad              0x20000224     0x4  Data  Lc  freertos_demo.o [1]
+directionCont           0x000015cd   0x106  Code  Gb  directionControl.o [1]
+directionControlInit    0x00001701    0x28  Code  Gb  directionControl.o [1]
 distances               0x200000a8    0x4c  Data  Lc  freertos_demo.o [1]
 downDistance            0x200000f8     0x4  Data  Lc  freertos_demo.o [1]
-dropOffFlag             0x2000793d     0x1  Data  Lc  freertos_demo.o [1]
-exit                    0x000018df     0x4  Code  Gb  exit.o [3]
-g_pui32GPIOBaseAddrs    0x000010e8    0x78  Data  Lc  gpio.o [4]
+dropOffFlag             0x20000205     0x1  Data  Lc  freertos_demo.o [1]
+exit                    0x000019ab     0x4  Code  Gb  exit.o [3]
+g_pui32GPIOBaseAddrs    0x000010f0    0x78  Data  Lc  gpio.o [4]
 globalCount             0x200000a0     0x4  Data  Lc  freertos_demo.o [1]
-goLeft                  0x20007939     0x1  Data  Lc  freertos_demo.o [1]
-goRight                 0x20007938     0x1  Data  Lc  freertos_demo.o [1]
-hardwareInit            0x00000dbd   0x1fa  Code  Gb  startup.o [1]
-leftCorrectRight        0x20007943     0x1  Data  Lc  freertos_demo.o [1]
-leftCorrectStraight     0x20007941     0x1  Data  Lc  freertos_demo.o [1]
+goLeft                  0x2000793d     0x1  Data  Lc  freertos_demo.o [1]
+goRight                 0x2000793c     0x1  Data  Lc  freertos_demo.o [1]
+hardwareInit            0x00000dc5   0x1fa  Code  Gb  startup.o [1]
+leftCorrectRight        0x20007944     0x1  Data  Lc  freertos_demo.o [1]
+leftCorrectStraight     0x20007942     0x1  Data  Lc  freertos_demo.o [1]
 leftCorrectStraightAgain
-                        0x20007945     0x1  Data  Lc  freertos_demo.o [1]
-leftTurnFlag            0x20000204     0x1  Data  Lc  freertos_demo.o [1]
-leftVeer                0x2000793f     0x1  Data  Lc  freertos_demo.o [1]
+                        0x20007946     0x1  Data  Lc  freertos_demo.o [1]
+leftTurnFlag            0x20000206     0x1  Data  Lc  freertos_demo.o [1]
+leftVeer                0x20007940     0x1  Data  Lc  freertos_demo.o [1]
 lowToHighDown           0x2000010c     0x4  Data  Lc  freertos_demo.o [1]
-lowToHighLeft           0x20000218     0x4  Data  Lc  freertos_demo.o [1]
-lowToHighRight          0x2000021c     0x4  Data  Lc  freertos_demo.o [1]
+lowToHighLeft           0x2000021c     0x4  Data  Lc  freertos_demo.o [1]
+lowToHighRight          0x20000220     0x4  Data  Lc  freertos_demo.o [1]
 lowToHighSweep          0x200000fc     0x4  Data  Lc  freertos_demo.o [1]
 lowToHighUp             0x20000104     0x4  Data  Lc  freertos_demo.o [1]
 main                    0x00000a99    0x10  Code  Gb  freertos_demo.o [1]
 memcmp                  0x00000a35          Code  Gb  memcmp.o [6]
-motorControl            0x000011ad   0x138  Code  Gb  motorControl.o [1]
-motorControlInit        0x000012ff    0x28  Code  Gb  motorControl.o [1]
-myCameraPositionerData  0x20000278     0x8  Data  Lc  freertos_demo.o [1]
-myCommData              0x20000290     0x4  Data  Lc  freertos_demo.o [1]
+motorControl            0x000011b5   0x138  Code  Gb  motorControl.o [1]
+motorControlInit        0x00001307    0x28  Code  Gb  motorControl.o [1]
+myCameraPositionerData  0x2000027c     0x8  Data  Lc  freertos_demo.o [1]
+myCommData              0x20000294     0x4  Data  Lc  freertos_demo.o [1]
 myDirectionControlData  0x20000114    0x6c  Data  Lc  freertos_demo.o [1]
-myMotorData             0x20000268     0x8  Data  Lc  freertos_demo.o [1]
-mySensorPositionerData  0x20000270     0x8  Data  Lc  freertos_demo.o [1]
-myServoData             0x20000230    0x14  Data  Lc  freertos_demo.o [1]
-myServoDataPan          0x20000244     0xc  Data  Lc  freertos_demo.o [1]
-myServoDataTilt         0x20000250     0xc  Data  Lc  freertos_demo.o [1]
+myMotorData             0x2000026c     0x8  Data  Lc  freertos_demo.o [1]
+mySensorPositionerData  0x20000274     0x8  Data  Lc  freertos_demo.o [1]
+myServoData             0x20000234    0x14  Data  Lc  freertos_demo.o [1]
+myServoDataPan          0x20000248     0xc  Data  Lc  freertos_demo.o [1]
+myServoDataTilt         0x20000254     0xc  Data  Lc  freertos_demo.o [1]
 mySoftInitData          0x200001c4    0x40  Data  Lc  freertos_demo.o [1]
-obstacleFlag            0x2000793a     0x1  Data  Lc  freertos_demo.o [1]
-overhangFlag            0x2000793c     0x1  Data  Lc  freertos_demo.o [1]
+obstacleFlag            0x2000793e     0x1  Data  Lc  freertos_demo.o [1]
+overhangFlag            0x20000204     0x1  Data  Lc  freertos_demo.o [1]
 prvIdleTask             0x00000681    0x4a  Code  Lc  tasks.o [1]
 pui32Stack              0x20007948   0x200  Data  Lc  startup_ewarm.o [1]
 pulseStartDown          0x20000110     0x4  Data  Lc  freertos_demo.o [1]
@@ -382,28 +379,28 @@ pxDelayedTaskList       0x2000002c     0x4  Data  Lc  tasks.o [1]
 pxOverflowDelayedTaskList
                         0x20000030     0x4  Data  Lc  tasks.o [1]
 pxPortInitialiseStack   0x000008dd    0x22  Code  Gb  port.o [1]
-pxReadyTasksLists       0x200077d4   0x140  Data  Lc  tasks.o [1]
-rightCorrectLeft        0x20007944     0x1  Data  Lc  freertos_demo.o [1]
-rightCorrectStraight    0x20007942     0x1  Data  Lc  freertos_demo.o [1]
+pxReadyTasksLists       0x200077dc   0x140  Data  Lc  tasks.o [1]
+rightCorrectLeft        0x20007945     0x1  Data  Lc  freertos_demo.o [1]
+rightCorrectStraight    0x20007943     0x1  Data  Lc  freertos_demo.o [1]
 rightCorrectStraightAgain
-                        0x20007946     0x1  Data  Lc  freertos_demo.o [1]
-rightTurnFlag           0x20000205     0x1  Data  Lc  freertos_demo.o [1]
-rightVeer               0x20007940     0x1  Data  Lc  freertos_demo.o [1]
-routine                 0x2000792c     0x4  Data  Lc  freertos_demo.o [1]
-sensorPositioner        0x00001535    0x1c  Code  Gb  sensorPositioner.o [1]
-sensorPositionerInit    0x0000155d    0x28  Code  Gb  sensorPositioner.o [1]
-servoCont               0x00001339    0xf0  Code  Gb  servoControl.o [1]
-servoContPan            0x0000145d    0x3c  Code  Gb  servoControlPan.o [1]
-servoContTilt           0x000014c9    0x3c  Code  Gb  servoControlTilt.o [1]
-servoControlInit        0x00001429    0x28  Code  Gb  servoControl.o [1]
-servoControlInitPan     0x00001499    0x28  Code  Gb  servoControlPan.o [1]
-servoControlInitTilt    0x00001505    0x28  Code  Gb  servoControlTilt.o [1]
-servoCount              0x20000284     0x4  Data  Lc  freertos_demo.o [1]
+                        0x20007947     0x1  Data  Lc  freertos_demo.o [1]
+rightTurnFlag           0x20000207     0x1  Data  Lc  freertos_demo.o [1]
+rightVeer               0x20007941     0x1  Data  Lc  freertos_demo.o [1]
+routine                 0x20007930     0x4  Data  Lc  freertos_demo.o [1]
+sensorPositioner        0x0000153d    0x1c  Code  Gb  sensorPositioner.o [1]
+sensorPositionerInit    0x00001565    0x28  Code  Gb  sensorPositioner.o [1]
+servoCont               0x00001341    0xf0  Code  Gb  servoControl.o [1]
+servoContPan            0x00001465    0x3c  Code  Gb  servoControlPan.o [1]
+servoContTilt           0x000014d1    0x3c  Code  Gb  servoControlTilt.o [1]
+servoControlInit        0x00001431    0x28  Code  Gb  servoControl.o [1]
+servoControlInitPan     0x000014a1    0x28  Code  Gb  servoControlPan.o [1]
+servoControlInitTilt    0x0000150d    0x28  Code  Gb  servoControlTilt.o [1]
+servoCount              0x20000288     0x4  Data  Lc  freertos_demo.o [1]
 servoCountOld           0x20000194     0x4  Data  Lc  freertos_demo.o [1]
 servoCountOldPan        0x200001a4     0x4  Data  Lc  freertos_demo.o [1]
 servoCountOldTilt       0x200001b4     0x4  Data  Lc  freertos_demo.o [1]
-servoCountPan           0x20000288     0x4  Data  Lc  freertos_demo.o [1]
-servoCountTilt          0x2000028c     0x4  Data  Lc  freertos_demo.o [1]
+servoCountPan           0x2000028c     0x4  Data  Lc  freertos_demo.o [1]
+servoCountTilt          0x20000290     0x4  Data  Lc  freertos_demo.o [1]
 servoCurCount           0x20000198     0x4  Data  Lc  freertos_demo.o [1]
 servoCurCountPan        0x200001a8     0x4  Data  Lc  freertos_demo.o [1]
 servoCurCountTilt       0x200001b8     0x4  Data  Lc  freertos_demo.o [1]
@@ -414,18 +411,18 @@ servoPosition           0x200000a4     0x4  Data  Lc  freertos_demo.o [1]
 servoPulse              0x2000019c     0x4  Data  Lc  freertos_demo.o [1]
 servoPulsePan           0x200001ac     0x4  Data  Lc  freertos_demo.o [1]
 servoPulseTilt          0x200001bc     0x4  Data  Lc  freertos_demo.o [1]
-softwareInit            0x0000101d    0x66  Code  Gb  startup.o [1]
-speed                   0x20000280     0x4  Data  Lc  freertos_demo.o [1]
-startCorrectionCount    0x20007930     0x4  Data  Lc  freertos_demo.o [1]
+softwareInit            0x00001025    0x66  Code  Gb  startup.o [1]
+speed                   0x20000284     0x4  Data  Lc  freertos_demo.o [1]
+startCorrectionCount    0x20007934     0x4  Data  Lc  freertos_demo.o [1]
 strncpy                 0x00000811          Code  Gb  strncpy.o [6]
-stuckFlag               0x2000793e     0x1  Data  Lc  freertos_demo.o [1]
-turnInProgress          0x2000022c     0x4  Data  Lc  freertos_demo.o [1]
-turnRad                 0x2000020c     0x4  Data  Lc  freertos_demo.o [1]
+stuckFlag               0x20000208     0x1  Data  Lc  freertos_demo.o [1]
+turnInProgress          0x20000230     0x4  Data  Lc  freertos_demo.o [1]
+turnRad                 0x20000210     0x4  Data  Lc  freertos_demo.o [1]
 upDistance              0x200000f4     0x4  Data  Lc  freertos_demo.o [1]
 updateMotorControl      0x20000180     0x1  Data  Lc  freertos_demo.o [1]
 updateMotorControlCount
                         0x20000190     0x4  Data  Lc  freertos_demo.o [1]
-uxCriticalNesting       0x20000294     0x4  Data  Lc  port.o [1]
+uxCriticalNesting       0x20000298     0x4  Data  Lc  port.o [1]
 uxCurrentNumberOfTasks  0x2000004c     0x4  Data  Lc  tasks.o [1]
 uxMissedTicks           0x20000064     0x4  Data  Lc  tasks.o [1]
 uxSchedulerSuspended    0x20000060     0x4  Data  Lc  tasks.o [1]
@@ -455,25 +452,25 @@ vTaskStartScheduler     0x0000049d    0x40  Code  Gb  tasks.o [1]
 vTaskSuspend            0x000003b7    0x54  Code  Gb  tasks.o [1]
 vTaskSuspendAll         0x000004dd     0xc  Code  Gb  tasks.o [1]
 vTaskSwitchContext      0x00000607    0x68  Code  Gb  tasks.o [1]
-wallFlag                0x2000793b     0x1  Data  Lc  freertos_demo.o [1]
-wheelTurnCountLeft      0x20000210     0x4  Data  Lc  freertos_demo.o [1]
+wallFlag                0x2000793f     0x1  Data  Lc  freertos_demo.o [1]
+wheelTurnCountLeft      0x20000214     0x4  Data  Lc  freertos_demo.o [1]
 wheelTurnCountLeftStart
-                        0x20000224     0x4  Data  Lc  freertos_demo.o [1]
-wheelTurnCountRight     0x20000214     0x4  Data  Lc  freertos_demo.o [1]
-wheelTurnCountRightStart
                         0x20000228     0x4  Data  Lc  freertos_demo.o [1]
+wheelTurnCountRight     0x20000218     0x4  Data  Lc  freertos_demo.o [1]
+wheelTurnCountRightStart
+                        0x2000022c     0x4  Data  Lc  freertos_demo.o [1]
 xCameraPositionerHandle
-                        0x20007924     0x4  Data  Lc  freertos_demo.o [1]
-xCommHandle             0x20007928     0x4  Data  Lc  freertos_demo.o [1]
+                        0x20007928     0x4  Data  Lc  freertos_demo.o [1]
+xCommHandle             0x2000792c     0x4  Data  Lc  freertos_demo.o [1]
 xDelayedTaskList1       0x20000078    0x14  Data  Lc  tasks.o [1]
 xDelayedTaskList2       0x2000008c    0x14  Data  Lc  tasks.o [1]
 xDirectionControlHandle
-                        0x2000791c     0x4  Data  Lc  freertos_demo.o [1]
-xEnd                    0x20000298     0x8  Data  Lc  heap_2.o [1]
-xFreeBytesRemaining     0x20000264     0x4  Data  Lc  heap_2.o [1]
-xHeap                   0x200002a0  0x7530  Data  Lc  heap_2.o [1]
+                        0x20007920     0x4  Data  Lc  freertos_demo.o [1]
+xEnd                    0x200002a0     0x8  Data  Lc  heap_2.o [1]
+xFreeBytesRemaining     0x20000268     0x4  Data  Lc  heap_2.o [1]
+xHeap                   0x200002a8  0x7530  Data  Lc  heap_2.o [1]
 xMissedYield            0x20000068     0x4  Data  Lc  tasks.o [1]
-xMotorControlHandle     0x20000208     0x4  Data  Lc  freertos_demo.o [1]
+xMotorControlHandle     0x2000020c     0x4  Data  Lc  freertos_demo.o [1]
 xNextTaskUnblockTime    0x20000074     0x4  Data  Lc  tasks.o [1]
 xNumOfOverflows         0x2000006c     0x4  Data  Lc  tasks.o [1]
 xPendingReadyList       0x20000000    0x14  Data  Lc  tasks.o [1]
@@ -482,12 +479,12 @@ xPortStartScheduler     0x000008ff    0x3c  Code  Gb  port.o [1]
 xPortSysTickHandler     0x00000965    0x1a  Code  Gb  port.o [1]
 xSchedulerRunning       0x2000005c     0x4  Data  Lc  tasks.o [1]
 xSensorPositionerHandle
-                        0x20007920     0x4  Data  Lc  freertos_demo.o [1]
+                        0x20007924     0x4  Data  Lc  freertos_demo.o [1]
 xServoControlHandle     0x20000184     0x4  Data  Lc  freertos_demo.o [1]
 xServoControlHandlePan  0x20000188     0x4  Data  Lc  freertos_demo.o [1]
 xServoControlHandleTilt
                         0x2000018c     0x4  Data  Lc  freertos_demo.o [1]
-xStart                  0x2000025c     0x8  Data  Lc  heap_2.o [1]
+xStart                  0x20000260     0x8  Data  Lc  heap_2.o [1]
 xSuspendedTaskList      0x20000038    0x14  Data  Lc  tasks.o [1]
 xTaskGenericCreate      0x0000026d   0x14a  Code  Gb  tasks.o [1]
 xTaskIsTaskSuspended    0x00000423    0x20  Code  Gb  tasks.o [1]
@@ -505,9 +502,9 @@ xTickCount              0x20000050     0x4  Data  Lc  tasks.o [1]
 [6] = rt7M_tl.a
 [7] = shb_l.a
 
-   5 718 bytes of readonly  code memory
-   1 080 bytes of readonly  data memory
-  31 559 bytes of readwrite data memory
+   5 922 bytes of readonly  code memory
+   1 078 bytes of readonly  data memory
+  31 556 bytes of readwrite data memory
 
 Errors: none
 Warnings: none
