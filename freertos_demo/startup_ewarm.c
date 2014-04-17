@@ -55,6 +55,7 @@ extern void xPortSysTickHandler(void);
 extern void Timer0IntHandler(void);
 extern void PortCIntHandler(void);
 extern void PortDIntHandler(void);
+extern void PortBIntHandler(void);
 
 //*****************************************************************************
 //
@@ -110,7 +111,7 @@ __root const uVectorEntry __vector_table[] @ ".intvec" =
     xPortPendSVHandler,                     // The PendSV handler
     xPortSysTickHandler,                    // The SysTick handler
     IntDefaultHandler,                      // GPIO Port A
-    IntDefaultHandler,                      // GPIO Port B
+    PortBIntHandler,                        // GPIO Port B
     PortCIntHandler,                        // GPIO Port C
     PortDIntHandler,                        // GPIO Port D
     IntDefaultHandler,                      // GPIO Port E

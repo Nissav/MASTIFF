@@ -17,8 +17,18 @@ void hardwareInit( void ) {
   ROM_GPIOPinTypeGPIOOutput(GPIO_PORTA_BASE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5);
   
   //Enable the GPIO port B
+  ROM_IntEnable(INT_GPIOB);
+  
   ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-  ROM_GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_2 | GPIO_PIN_3);
+  
+  ROM_GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_2);
+  ROM_GPIOIntTypeSet(GPIO_PORTB_BASE, GPIO_PIN_2, GPIO_BOTH_EDGES); // Detect left range finder echo
+  GPIOIntEnable(GPIO_PORTB_BASE, GPIO_PIN_2);
+  
+  ROM_GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_3);
+  ROM_GPIOIntTypeSet(GPIO_PORTB_BASE, GPIO_PIN_3, GPIO_BOTH_EDGES); // Detect right range finder echo
+  GPIOIntEnable(GPIO_PORTB_BASE, GPIO_PIN_3);
+  
   
   //Setup port C (range finders)
   ROM_IntEnable(INT_GPIOC);
@@ -61,17 +71,8 @@ void hardwareInit( void ) {
   ROM_GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_4);
   
   //Enable the GPIO port F
-  ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-  
-  ROM_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_2);
-  
-  ROM_GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_3); 
-  ROM_GPIOIntTypeSet(GPIO_PORTF_BASE, GPIO_PIN_3, GPIO_RISING_EDGE);
-  GPIOIntEnable(GPIO_PORTF_BASE, GPIO_PIN_3);
-  
-  ROM_GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_4); 
-  ROM_GPIOIntTypeSet(GPIO_PORTF_BASE, GPIO_PIN_4, GPIO_RISING_EDGE);
-  GPIOIntEnable(GPIO_PORTF_BASE, GPIO_PIN_4);
+  ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);  
+  ROM_GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_2 | GPIO_PIN_3);
   
   //Enable the GPIO pin F0 for output
   HWREG(BUTTONS_GPIO_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY;

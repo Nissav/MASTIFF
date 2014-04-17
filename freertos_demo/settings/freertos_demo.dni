@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=257014524
+Checksum=-126167538
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -30,10 +30,7 @@ Exclusions=
 [Disassemble mode]
 mode=0
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\directionControl.c}.27.9" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\directionControl.c}.20.9" 1 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\sourceFiles\directionControl.c}.13.9" 1 0 0 0 "" 0 ""
-Count=3
+Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

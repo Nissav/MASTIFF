@@ -9,8 +9,8 @@
 //      PA5:    Motor Control, DAC output data (chip select)
 //
 //      PORT B:
-//      PB2:    motorDirDecode LSB (in0 input for GAL)
-//      PB3:    
+//      PB2:    Range Finder (left) interrupt
+//      PB3:    Range Finder (right) interrupt
 //
 //      PORT C:
 //      PC4:    Range Finder (down) interrupt
@@ -29,7 +29,7 @@
 //      PORT F:
 //      PF0:    Pan Servo Control
 //      PF2:    Tilt Servo Control
-//      PF3:    
+//      PF3:    motorDirDecode LSB (in0 input for GAL) NOTE: originally PB2
 //      PF4:    
 //
 //*****************************************************************************
@@ -69,10 +69,13 @@ static unsigned int     servoCurCount   = 0;
 static unsigned int     servoPulse      = SERVO_MOVE_PULSES;
 static unsigned int     servoCurPulse   = 0;
 
+//Distance measurements
 static unsigned int     servoPosition   = 9;
 static unsigned int     distances[19]   = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
 static unsigned int     upDistance      = 100;
 static unsigned int     downDistance    = 0;
+static unsigned int     leftDistance    = 0;
+static unsigned int     rightDistance   = 0;
 
 //Camera pan servo control
 static unsigned int     servoCountPan      = SERVO_90;
@@ -117,6 +120,16 @@ static unsigned int     lowToHighDown = 1; //Rising edge of sensor expected if 1
 static unsigned long    pulseStartDown = 0;
 static unsigned long    pulseStopDown = 0;
 
+//Range finder (left) expected edge and measured start time and stop time
+static unsigned int     lowToHighLeftRF = 1; //Rising edge of sensor expected if 1, otherwise 0
+static unsigned long    pulseStartLeftRF = 0;
+static unsigned long    pulseStopLeftRF = 0;
+
+//Range finder (right) expected edge and measured start time and stop time
+static unsigned int     lowToHighRightRF = 1; //Rising edge of sensor expected if 1, otherwise 0
+static unsigned long    pulseStartRightRF = 0;
+static unsigned long    pulseStopRightRF = 0;
+
 //Count the number of 1/5 turns of the wheels on each side
 static signed int       wheelTurnCountLeft = 0;
 static signed int       wheelTurnCountRight = 0;
@@ -155,7 +168,7 @@ static directionContData myDirectionControlData  =  {&goRight, &goLeft, &stuckFl
 &upDistance, &downDistance, &overhangFlag, &dropOffFlag,
 &leftTurnFlag, &rightTurnFlag, distances, &leftVeer, &rightVeer, &leftCorrectStraight, &rightCorrectStraight,
 &leftCorrectRight, &rightCorrectLeft, &leftCorrectStraightAgain, &rightCorrectStraightAgain,
-&globalCount, &startCorrectionCount, &updateMotorControl, &routine};
+&globalCount, &startCorrectionCount, &updateMotorControl, &routine, &leftDistance, &rightDistance};
 static sensorPositionerData mySensorPositionerData = {&servoCount, &servoPosition};
 static cameraPositionerData myCameraPositionerData = {&servoCountPan, &servoCountTilt};
 static commData myCommData = {&commIn};
@@ -391,4 +404,30 @@ void PortCIntHandler(void){
     pulseStartDown = globalCount;
   }
   GPIOIntClear(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6);
+}
+
+/*
+Range finder interrupt (left and right)
+*/
+void PortBIntHandler(void){
+  // Left range finder
+  if(lowToHighLeftRF == 0 && !GPIOPinRead(GPIO_PORTB_BASE, GPIO_PIN_2)){
+    lowToHighLeftRF = 1; //stop time
+    pulseStopLeftRF = globalCount;
+    leftDistance = (pulseStopLeftRF - pulseStartLeftRF) * 100 / 58;
+  }else if(lowToHighLeftRF == 1 && GPIOPinRead(GPIO_PORTB_BASE, GPIO_PIN_2)){
+    lowToHighLeftRF = 0; //start time
+    pulseStartLeftRF = globalCount;
+  }
+  
+  // Right range finder
+  if(lowToHighRightRF == 0 && !GPIOPinRead(GPIO_PORTB_BASE, GPIO_PIN_3)){
+    lowToHighRightRF = 1; //stop time
+    pulseStopRightRF = globalCount;
+    rightDistance = (pulseStopRightRF - pulseStartRightRF) * 100 / 58;
+  }else if(lowToHighRightRF == 1 && GPIOPinRead(GPIO_PORTB_BASE, GPIO_PIN_3)){
+    lowToHighRightRF = 0; //start time
+    pulseStartRightRF = globalCount;
+  }
+  GPIOIntClear(GPIO_PORTB_BASE, GPIO_PIN_2 | GPIO_PIN_3);
 }

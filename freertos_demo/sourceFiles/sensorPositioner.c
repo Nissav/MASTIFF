@@ -78,6 +78,7 @@ void sensorPositioner(void* data) {
     *(myData->servoCount) = SERVO_10;
     vTaskSuspend(NULL);
     */
+    /*
     //Sweep
     *(myData->servoCount) = SERVO_90;
     vTaskSuspend(NULL);
@@ -87,11 +88,10 @@ void sensorPositioner(void* data) {
     vTaskSuspend(NULL);
     *(myData->servoCount) = SERVO_0;
     vTaskSuspend(NULL);
-    /*
+    */
     //Front
     *(myData->servoCount) = SERVO_90;
     vTaskSuspend(NULL);
-    */
   }
 }
 

@@ -91,10 +91,11 @@
 #define SERVO_HOLD_PULSES       5
 
 //Direction Control
-#define STRAIGHT_THRESHOLD      20
-#define TURN_THRESHOLD          60
-#define UP_THRESHOLD            1
-#define DOWN_THRESHOLD          1000
+#define STRAIGHT_THRESHOLD      10 //wall ahead if less than this
+#define TURN_THRESHOLD          40 //turn available if more than this
+#define WALL_THRESHOLD          20 //wall on side if less than this
+#define UP_THRESHOLD            1 //overhang
+#define DOWN_THRESHOLD          1000 //drop
 
 #define MAP_R                   0
 #define SEARCH_R                1
@@ -162,6 +163,8 @@ typedef struct {
   unsigned long*      startCorrectionCount;
   bool*               updateMotorControl;
   unsigned int*       routine;
+  unsigned int*       leftDistance;
+  unsigned int*       rightDistance;
 } directionContData;
 
 //Define dataset for sensorPositioner task

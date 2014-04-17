@@ -88,23 +88,23 @@ void motorControl(void* data) {
     switch(wheelDir) {
     case 0:
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_4, 0x00);
-      GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_2, 0x00);
+      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x00);
       break;
     case 1:
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_4, 0x00);
-      GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_2, 0xFF);
+      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xFF);
       break;
     case 2:
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_4, 0xFF);
-      GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_2, 0x00);
+      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x00);
       break;
     case 3:
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_4, 0xFF);
-      GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_2, 0xFF);
+      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xFF);
       break;
     default:
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_4, 0xFF);
-      GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_2, 0x00);
+      GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x00);
       break;
     }
     
