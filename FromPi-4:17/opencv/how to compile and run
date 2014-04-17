@@ -1,0 +1,22 @@
+How to compile and run the c++ files, anything with .cpp
+
+chmod u+x (name of file) only once
+g++ (name of file).cpp -o (name output file) `pkg-config --cflags --libs opencv`
+./(name output file
+
+How to compile and run c files, anything with .c
+chmod u+x (name of file) only once
+gcc (name of file).c -o (name output file) `pkg-config --cflags --libs opencv`
+./(name output file
+
+How to compile and run python files, anything with .py
+chmod u+x (name of file) only once
+python (name of file).py
+Not 100% sure bout this
+
+How to compile with wiringPi
+ gcc master.c -o master -lwiringPi
+
+How to compile main2.cpp
+g++ main2.cpp -o main `pkg-config --cflags --libs opencv`
+./main camera setup

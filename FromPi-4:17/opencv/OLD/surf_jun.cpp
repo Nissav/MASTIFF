@@ -1,0 +1,75 @@
+//*******************surf.cpp******************//
+//********** SURF implementation in OpenCV*****//
+//**loads video from webcam, grabs frames computes SURF keypoints and descriptors**//  //** and marks them**//
+
+//****author: achu_wilson@rediffmail.com****//
+
+#include <stdio.h>
+#include <opencv2/features2d/features2d.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc_c.h>
+
+using namespace std;
+
+int main(int argc, char** argv)
+{	
+	printf("first line\n");
+	CvMemStorage* storage = cvCreateMemStorage(0);
+	cvNamedWindow("Image", 1);
+	//int key = 0;
+	static CvScalar red_color[] = {{0,0,255}};
+	
+	
+	CvMat* image;   //delete
+	printf("past declarations\n");
+	
+	/*
+	CvCapture* capture = cvCreateCameraCapture(0);
+	CvMat* prevgray = 0, *image = 0, *gray =0;
+	while( key != 'q' )
+	{
+		int firstFrame = gray == 0;
+		IplImage* frame = cvQueryFrame(capture);
+		if(!frame)
+			break;
+		if(!gray)
+		{
+			image = cvCreateMat(frame->height, frame->width, CV_8UC1);
+		}
+
+	*/
+	IplImage* frame = cvLoadImage("/home/pi/opencv/penguin.jpg", CV_LOAD_IMAGE_COLOR);
+	printf("past image load\n");
+
+	image = cvCreateMat(frame->height, frame->width, CV_8UC1);
+
+	//Convert the RGB image obtained from camera into Grayscale
+	cvCvtColor(frame, image, CV_BGR2GRAY);
+	printf("past conversion to grey\n");	
+
+	//Define sequence for storing surf keypoints and descriptors
+	CvSeq *imageKeypoints = 0, *imageDescriptors = 0;
+	int i;
+	
+	//Extract SURF points by initializing parameters
+	CvSURFParams params = cvSURFParams(500, 1);
+	cvExtractSURF(image, 0, &imageKeypoints, &imageDescriptors, storage, params, 0);
+	printf("Image Descriptors: %d\n", imageDescriptors->total);
+
+	//draw the keypoints on the captured frame
+	for( i = 0; i < imageKeypoints->total; i++ )
+	{
+		CvSURFPoint* r = (CvSURFPoint*)cvGetSeqElem( imageKeypoints, i );
+		CvPoint center;
+		int radius;
+		center.x = cvRound(r->pt.x);
+		center.y = cvRound(r->pt.y);
+		radius = cvRound(r->size*1.2/9.*2);
+		cvCircle( frame, center, radius, red_color[0], 1, 8, 0 );
+	}
+	cvShowImage( "Image", frame );
+	cvWaitKey(0);
+	cvSaveImage( "penguin_featured.jpg", frame );
+	cvDestroyWindow("Image");
+	return 0;
+}
